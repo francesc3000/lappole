@@ -3,12 +3,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/auth/auth.dart';
 import 'package:lappole/src/auth/auth_guard.dart';
+import 'package:lappole/src/dao/factory_dao.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/home_page.dart';
 import 'package:lappole/src/login/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lappole/src/main/bloc/main_bloc.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
+import 'package:lappole/src/user/user_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -40,6 +42,7 @@ class AppModule extends Module {
   @override
   void binds(i) {
     i.addSingleton(Auth.new);
+    i.addSingleton(FactoryDao.new);
     // Bloc
     i.addSingleton<HomeBloc>(HomeBloc.new,
         config: BindConfig(
@@ -65,7 +68,7 @@ class AppModule extends Module {
         child: (context) => const LoginPage(),
         transition: TransitionType.fadeIn);
     r.child('/user',
-        child: (context) => const LoginPage(),
+        child: (context) => const UserPage(),
         guards: [AuthGuard()],
         transition: TransitionType.fadeIn);
     // r.module('/b-module', module: BModule());

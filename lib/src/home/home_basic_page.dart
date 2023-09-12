@@ -6,7 +6,7 @@ import 'package:lappole/src/basic_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/bloc/home_event.dart';
 
-abstract class HomeBasicPage extends BasicPage {
+abstract class HomeBasicPage extends BasicPage implements Disposable {
   final controller = NotchBottomBarController(index: 0);
   final homeBloc = Modular.get<HomeBloc>();
 
@@ -20,11 +20,11 @@ abstract class HomeBasicPage extends BasicPage {
       bottomBarItems: const [
         BottomBarItem(
           inActiveItem: Icon(
-            FontAwesomeIcons.personRunning,
+            FontAwesomeIcons.rankingStar,
             color: Colors.green,
           ),
           activeItem: Icon(
-            FontAwesomeIcons.personRunning,
+            FontAwesomeIcons.rankingStar,
             color: Colors.greenAccent,
           ),
           itemLabel: 'Carrera',

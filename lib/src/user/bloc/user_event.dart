@@ -5,10 +5,8 @@ class UserEventEmpty extends UserEvent {
   String toString() => 'Empty Event';
 }
 
-class ChangeTabEvent extends UserEvent {
-  int index;
-
-  ChangeTabEvent(this.index);
+class InitUserDataEvent extends UserEvent {
+  InitUserDataEvent();
   @override
-  String toString() => 'ChangeTabEvent Event';
+  String toString() => 'InitUserData Event';
 }

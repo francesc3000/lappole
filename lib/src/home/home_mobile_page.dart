@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lappole/src/app.dart';
 import 'package:lappole/src/feed/feed_page.dart';
 import 'package:lappole/src/home/home_basic_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
@@ -37,6 +38,7 @@ class HomeMobilePage extends HomeBasicPage {
 
   /// widget list
   final List<Widget> bottomBarPages = [
+    // ModularApp(module: AppModule(), child: const AppWidget()),
     const MainPage(),
     const FeedPage(),
     const UserPage(),
@@ -54,9 +56,8 @@ class HomeMobilePage extends HomeBasicPage {
             loading = true;
           } else if (state is UploadHomeFields) {
             loading = false;
-
-            if (currentIndex != state.index) {
-              currentIndex = state.index;
+            currentIndex = state.index;
+            if (_pageController.hasClients) {
               _pageController.jumpToPage(currentIndex);
             }
           }
@@ -72,5 +73,11 @@ class HomeMobilePage extends HomeBasicPage {
                 bottomBarPages.length, (index) => bottomBarPages[index]),
           );
         });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

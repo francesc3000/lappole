@@ -1,3 +1,5 @@
 class Auth {
-  bool isLogged = false;
+  String? userId;
+
+  bool get isLogged => userId?.isEmpty ?? true ? true : true;
 }

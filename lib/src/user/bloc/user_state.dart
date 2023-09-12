@@ -1,3 +1,6 @@
+import 'package:lappole/src/model/club.dart';
+import 'package:lappole/src/model/user.dart';
+
 abstract class UserState {}
 
 class UserInitState extends UserState {
@@ -6,7 +9,8 @@ class UserInitState extends UserState {
 }
 
 class UploadUserFields extends UserState {
-  UploadUserFields();
+  final User? user;
+  UploadUserFields({this.user});
 
   @override
   String toString() => 'UploadUserFields State';

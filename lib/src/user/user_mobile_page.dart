@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lappole/src/feed/feed_page.dart';
+import 'package:lappole/src/model/club.dart';
+import 'package:lappole/src/model/user.dart';
+import 'package:lappole/src/user/club_widget.dart';
 import 'package:lappole/src/user/user_basic_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
@@ -17,23 +20,26 @@ class UserMobilePage extends UserBasicPage {
         bloc: userBloc,
         builder: (BuildContext context, state) {
           bool loading = false;
+          late User user;
 
           if (state is UserInitState) {
             loading = true;
+            userBloc.add(InitUserDataEvent());
           } else if (state is UploadUserFields) {
             loading = false;
+            user = state.user!;
           }
 
-          // if (loading) {
-          //   return const Center(child: CircularProgressIndicator());
-          // }
+          if (loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: [
-                Text('Nombre: Francesc Muñoz'),
-                Text(''),
+                Text('Nombre: ${user.name} ${user.lastname}'),
+                ClubWidget(user.club),
               ],
             ),
           );
