@@ -1,15 +1,11 @@
-abstract class MainEvent{
-}
+abstract class MainEvent {}
 
-class MainEventEmpty extends MainEvent{
+class MainEventEmpty extends MainEvent {
   @override
   String toString() => 'Empty Event';
 }
 
-class ChangeTabEvent extends MainEvent {
-  int index;
-
-  ChangeTabEvent(this.index);
+class MainInitialDataEvent extends MainEvent {
   @override
-  String toString() => 'ChangeTabEvent Event';
+  String toString() => 'MainInitialData Event';
 }

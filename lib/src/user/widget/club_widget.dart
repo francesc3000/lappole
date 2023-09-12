@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lappole/src/model/club.dart';
+import 'package:lappole/src/user/bloc/user_bloc.dart';
+import 'package:lappole/src/user/bloc/user_event.dart';
+import 'package:lappole/src/user/widget/add_delete_widget.dart';
 
 class ClubWidget extends StatelessWidget {
   final Club? club;
@@ -8,20 +13,32 @@ class ClubWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isClubNull = club == null ? true : false;
+    final userBloc = Modular.get<UserBloc>();
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           Text('Club'),
-          Visibility(
-            child: Text('No estas en un club'),
-            visible: club == null,
-          ),
-          Visibility(
-            child: Column(children: [
-              Text('Nombre: ${club!.name}'),
-            ]),
-            visible: club != null,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Visibility(
+                child: Text('No estas en un club'),
+                visible: isClubNull,
+              ),
+              Visibility(
+                child: Column(children: [
+                  Text('Nombre: ${club!.name}'),
+                ]),
+                visible: !isClubNull,
+              ),
+              AddDeleteWidget(
+                isObjectNull: isClubNull,
+                onTap: () => userBloc.add(AddDeleteClubEvent()),
+              ),
+            ],
           ),
         ],
       ),

@@ -6,7 +6,11 @@ class UserEventEmpty extends UserEvent {
 }
 
 class InitUserDataEvent extends UserEvent {
-  InitUserDataEvent();
   @override
   String toString() => 'InitUserData Event';
+}
+
+class AddDeleteClubEvent extends UserEvent {
+  @override
+  String toString() => 'AddDeleteClub Event';
 }

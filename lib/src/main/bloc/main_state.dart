@@ -1,3 +1,5 @@
+import 'package:lappole/src/model/event.dart';
+
 abstract class MainState {}
 
 class MainInitState extends MainState {
@@ -6,7 +8,9 @@ class MainInitState extends MainState {
 }
 
 class UploadMainFields extends MainState {
-  UploadMainFields();
+  final List<Event>? events;
+
+  UploadMainFields({this.events});
 
   @override
   String toString() => 'UploadMainFields State';

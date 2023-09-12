@@ -21,7 +21,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       //TODO: Quitar ?? '' cuando Auth este funcionando
       _user = await _factoryDao.userDao.getUserData(_auth.userId ?? '');
 
-      emit(_uploadUserFields());
+      emit(UserIsLoginState(_user!));
     }
   }
 

@@ -26,8 +26,10 @@ class UserMobilePage extends UserBasicPage {
           if (state is UserInitState) {
             loading = true;
             userBloc.add(InitUserDataEvent());
-          } else if (state is UploadUserFields) {
+          } else if (state is UserIsLoginState) {
             loading = false;
+            user = state.user;
+          } else if (state is UploadUserFields) {
             user = state.user!;
           }
 

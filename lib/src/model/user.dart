@@ -8,4 +8,6 @@ class User {
   Watch? watch;
 
   User(this.name, this.lastname);
+
+  bool get hasClub => club == null ? false : true;
 }

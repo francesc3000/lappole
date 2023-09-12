@@ -7,6 +7,7 @@ import 'package:lappole/src/main/main_basic_page.dart';
 import 'package:lappole/src/main/bloc/main_bloc.dart';
 import 'package:lappole/src/main/bloc/main_event.dart';
 import 'package:lappole/src/main/bloc/main_state.dart';
+import 'package:lappole/src/model/event.dart';
 
 class MainMobilePage extends MainBasicPage {
   MainMobilePage(String title, {Key? key}) : super(title, key: key);
@@ -17,22 +18,29 @@ class MainMobilePage extends MainBasicPage {
         bloc: mainBloc,
         builder: (BuildContext context, state) {
           bool loading = false;
+          List<Event>? events;
 
           if (state is MainInitState) {
             loading = true;
+            mainBloc.add(MainInitialDataEvent());
           } else if (state is UploadMainFields) {
-            loading = false;
+            events = state.events;
           }
 
-          // if (loading) {
-          //   return const Center(child: CircularProgressIndicator());
-          // }
+          if (loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-          return Center(
-            child: IconButton(
-              icon: FaIcon(FontAwesomeIcons.personRunning),
-              onPressed: null,
-            ),
+          return ListView.builder(
+            itemCount: events!.length,
+            itemBuilder: (context, index) {
+              return Center(
+                child: IconButton(
+                  icon: FaIcon(FontAwesomeIcons.personRunning),
+                  onPressed: null,
+                ),
+              );
+            },
           );
         });
   }
