@@ -5,11 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lappole/src/feed/feed_page.dart';
 import 'package:lappole/src/model/club.dart';
 import 'package:lappole/src/model/user.dart';
-import 'package:lappole/src/user/club_widget.dart';
+import 'package:lappole/src/user/widget/club_widget.dart';
 import 'package:lappole/src/user/user_basic_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
+import 'package:lappole/src/user/widget/watch_widget.dart';
 
 class UserMobilePage extends UserBasicPage {
   UserMobilePage(String title, {Key? key}) : super(title, key: key);
@@ -40,6 +41,7 @@ class UserMobilePage extends UserBasicPage {
               children: [
                 Text('Nombre: ${user.name} ${user.lastname}'),
                 ClubWidget(user.club),
+                WatchWidget(user.watch),
               ],
             ),
           );

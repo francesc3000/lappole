@@ -9,7 +9,7 @@ class ClubWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           Text('Club'),
@@ -22,7 +22,7 @@ class ClubWidget extends StatelessWidget {
               Text('Nombre: ${club!.name}'),
             ]),
             visible: club != null,
-          )
+          ),
         ],
       ),
     );
