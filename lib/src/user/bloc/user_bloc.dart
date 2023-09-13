@@ -44,7 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } else {
       await _factoryDao.userDao.joinClub(_user!.id, _clubPassword);
       //TODO: Quitar cuando se guarde en firebase
-      _user!.club = Club('222', _clubPassword);
+      _user!.club = Club(id: '222', name: _clubPassword);
     }
 
     emit(_uploadUserFields());
@@ -55,7 +55,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (_user!.hasWatch) {
       _user!.watch = null;
     } else {
-      _user!.watch = Watch('222', 'Garmin 1');
+      _user!.watch = Watch(id: '222', name: 'Garmin 1');
     }
 
     emit(_uploadUserFields());

@@ -2,5 +2,5 @@ class Club {
   final String id;
   final String name;
 
-  Club(this.id, this.name);
+  Club({required this.id, required this.name});
 }

@@ -11,6 +11,7 @@ import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
 import 'package:lappole/src/user/widget/third_party_widget.dart';
+import 'package:lappole/src/user/widget/user_activities_widget.dart';
 import 'package:lappole/src/user/widget/watch_widget.dart';
 
 class UserMobilePage extends UserBasicPage {
@@ -51,6 +52,10 @@ class UserMobilePage extends UserBasicPage {
                 Visibility(
                   visible: user.canThirdPartyLogin,
                   child: ThirdPartyWidget(user.isStravaLogin),
+                ),
+                Visibility(
+                  visible: user.hasActivities,
+                  child: const UserActivitiesWidget(),
                 ),
               ],
             ),
