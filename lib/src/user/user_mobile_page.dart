@@ -10,6 +10,7 @@ import 'package:lappole/src/user/user_basic_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
+import 'package:lappole/src/user/widget/third_party_widget.dart';
 import 'package:lappole/src/user/widget/watch_widget.dart';
 
 class UserMobilePage extends UserBasicPage {
@@ -43,7 +44,14 @@ class UserMobilePage extends UserBasicPage {
               children: [
                 Text('Nombre: ${user.name} ${user.lastname}'),
                 ClubWidget(user.club),
-                WatchWidget(user.watch),
+                Visibility(
+                  visible: user.canAddWatch,
+                  child: WatchWidget(user.watch),
+                ),
+                Visibility(
+                  visible: user.canThirdPartyLogin,
+                  child: ThirdPartyWidget(user.isStravaLogin),
+                ),
               ],
             ),
           );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AddDeleteWidget extends StatelessWidget {
-  final Function? onTap;
+  final VoidCallback? onTap;
   final bool isObjectNull;
 
   const AddDeleteWidget({super.key, this.onTap, required this.isObjectNull});
@@ -10,7 +10,7 @@ class AddDeleteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => {},
+      onPressed: onTap,
       icon: isObjectNull
           ? const FaIcon(FontAwesomeIcons.circlePlus)
           : const FaIcon(FontAwesomeIcons.solidCircleXmark),

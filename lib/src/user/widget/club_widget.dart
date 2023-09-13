@@ -24,15 +24,26 @@ class ClubWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Visibility(
-                child: Text('No estas en un club'),
-                visible: isClubNull,
+              Flexible(
+                flex: 6,
+                child: Visibility(
+                  child: TextField(
+                    decoration:
+                        InputDecoration(hintText: 'Ingesa password del Club'),
+                    onChanged: (value) =>
+                        userBloc.add(ClubPasswordChangeEvent(value)),
+                  ),
+                  visible: isClubNull,
+                ),
               ),
-              Visibility(
-                child: Column(children: [
-                  Text('Nombre: ${club!.name}'),
-                ]),
-                visible: !isClubNull,
+              Flexible(
+                flex: 6,
+                child: Visibility(
+                  child: Column(children: [
+                    Text('Nombre: ${club?.name ?? ''}'),
+                  ]),
+                  visible: !isClubNull,
+                ),
               ),
               AddDeleteWidget(
                 isObjectNull: isClubNull,

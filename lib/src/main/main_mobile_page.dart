@@ -34,10 +34,16 @@ class MainMobilePage extends MainBasicPage {
           return ListView.builder(
             itemCount: events!.length,
             itemBuilder: (context, index) {
+              Event event = events![index];
               return Center(
-                child: IconButton(
-                  icon: FaIcon(FontAwesomeIcons.personRunning),
-                  onPressed: null,
+                child: Column(
+                  children: [
+                    Text(event.name),
+                    IconButton(
+                      icon: FaIcon(FontAwesomeIcons.personRunning),
+                      onPressed: null,
+                    ),
+                  ],
                 ),
               );
             },
