@@ -41,21 +41,31 @@ class UserMobilePage extends UserBasicPage {
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(
+            child: Column(
               children: [
                 Text('Nombre: ${user.name} ${user.lastname}'),
                 ClubWidget(user.club),
-                Visibility(
-                  visible: user.canAddWatch,
-                  child: WatchWidget(user.watch),
+                Flexible(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Visibility(
+                        visible: user.canAddWatch,
+                        child: WatchWidget(user.watch),
+                      ),
+                      Visibility(
+                        visible: user.canThirdPartyLogin,
+                        child: ThirdPartyWidget(user.isStravaLogin),
+                      ),
+                    ],
+                  ),
                 ),
-                Visibility(
-                  visible: user.canThirdPartyLogin,
-                  child: ThirdPartyWidget(user.isStravaLogin),
-                ),
-                Visibility(
-                  visible: user.hasActivities,
-                  child: const UserActivitiesWidget(),
+                Flexible(
+                  flex: 5,
+                  child: Visibility(
+                    visible: user.hasActivities,
+                    child: UserActivitiesWidget(),
+                  ),
                 ),
               ],
             ),
