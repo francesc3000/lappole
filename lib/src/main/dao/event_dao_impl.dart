@@ -1,13 +1,17 @@
 import 'package:lappole/src/dao/event_dao.dart';
 import 'package:lappole/src/model/event.dart';
+import 'package:lappole/src/model/event_data.dart';
 
 class EventDaoImpl implements EventDao {
   @override
   Future<List<Event>> getEvents(String clubId) {
     List<Event> events = [];
-    events.add(Event(id: '123', name: 'Evento 1'));
-    events.add(Event(id: '124', name: 'Evento 2'));
-    events.add(Event(id: '125', name: 'Evento 3'));
+    events.add(
+        Event(id: '123', name: 'Evento 1', eventData: EventData(counter: 1)));
+    events.add(
+        Event(id: '124', name: 'Evento 2', eventData: EventData(counter: 2)));
+    events.add(
+        Event(id: '125', name: 'Evento 3', eventData: EventData(counter: 3)));
     return Future.value(events);
   }
 

@@ -39,9 +39,14 @@ class MainMobilePage extends MainBasicPage {
                 child: Column(
                   children: [
                     Text(event.name),
+                    event.hasData
+                        ? Text(event.eventData!.counter.round().toString())
+                        : Container(),
                     IconButton(
                       icon: FaIcon(FontAwesomeIcons.personRunning),
-                      onPressed: null,
+                      onPressed: event.hasData
+                          ? () => mainBloc.add(AddKmEvent(event.id))
+                          : null,
                     ),
                   ],
                 ),

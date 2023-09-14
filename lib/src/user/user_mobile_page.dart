@@ -61,7 +61,7 @@ class UserMobilePage extends UserBasicPage {
                   ),
                 ),
                 Flexible(
-                  flex: 5,
+                  flex: user.hasWatch || user.isStravaLogin ? 5 : 3,
                   child: Visibility(
                     visible: user.hasActivities,
                     child: UserActivitiesWidget(),

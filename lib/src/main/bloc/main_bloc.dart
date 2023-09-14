@@ -23,6 +23,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc() : super(MainInitState()) {
     on<MainEventEmpty>((event, emit) => emit(MainInitState()));
     on<MainInitialDataEvent>(_mainInitialDataEvent);
+    on<AddKmEvent>(_addKmEvent);
 
     userSubscription = userBloc.stream.listen((UserState state) => {
           if (state is UserIsLoginState)
@@ -36,6 +37,15 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     } else {
       _events = await factoryDao.eventDao.getNoAuthEvents();
     }
+
+    emit(_uploadMainFields());
+  }
+
+  void _addKmEvent(AddKmEvent event, Emitter emit) async {
+    Event currentEvent =
+        _events.firstWhere((element) => element.id == event.eventId);
+
+    currentEvent.eventData?.counter++;
 
     emit(_uploadMainFields());
   }
