@@ -16,6 +16,7 @@ class UserActivitiesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user;
+
     return BlocBuilder<UserBloc, UserState>(
         bloc: userBloc,
         builder: (BuildContext context, state) {
@@ -31,18 +32,19 @@ class UserActivitiesWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   Activity activity = user!.activities![index];
                   return ExpansionTileCard(
-                    title: Text(activity.name),
-                    trailing: Icon(
+                    leading: Icon(
                       index == 2
                           ? FontAwesomeIcons.xmark
                           : FontAwesomeIcons.arrowUp,
                       color: index == 2 ? Colors.red : Colors.green,
                     ),
+                    title: Text(activity.name),
                     children: [
                       Text('${activity.distance} km'),
                       Visibility(
-                          visible: activity.hasObservation,
-                          child: Text(activity.observation ?? ''))
+                        visible: activity.hasObservation,
+                        child: Text(activity.observation ?? ''),
+                      ),
                     ],
                   );
                 });
