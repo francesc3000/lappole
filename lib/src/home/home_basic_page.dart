@@ -11,7 +11,7 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
   final homeBloc = Modular.get<HomeBloc>();
 
   HomeBasicPage(String title, {Key? key})
-      : super(title, key: key, hasSafeArea: true);
+      : super(title, key: key, safeArea: true, extendBody: true);
 
   @override
   Widget? bottomNavigationBar(BuildContext context) {
@@ -40,6 +40,17 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
           ),
           itemLabel: 'Ranking',
         ),
+        // BottomBarItem(
+        //   inActiveItem: Icon(
+        //     FontAwesomeIcons.squareRss,
+        //     color: Colors.green,
+        //   ),
+        //   activeItem: Icon(
+        //     FontAwesomeIcons.squareRss,
+        //     color: Colors.greenAccent,
+        //   ),
+        //   itemLabel: 'Noticias',
+        // ),
         BottomBarItem(
           inActiveItem: Icon(
             FontAwesomeIcons.solidUser,

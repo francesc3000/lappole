@@ -6,8 +6,7 @@ import 'package:lappole/src/main/bloc/main_bloc.dart';
 abstract class MainBasicPage extends BasicPage {
   final mainBloc = Modular.get<MainBloc>();
 
-  MainBasicPage(String title, {Key? key})
-      : super(title, key: key, hasSafeArea: true);
+  MainBasicPage(String title, {Key? key}) : super(title, key: key);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {String? title}) => null;

@@ -9,7 +9,7 @@ abstract class UserBasicPage extends BasicPage {
   UserBasicPage(
     String title, {
     Key? key,
-  }) : super(title, key: key, hasSafeArea: true);
+  }) : super(title, key: key);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {String? title}) => null;

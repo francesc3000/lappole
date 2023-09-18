@@ -12,6 +12,12 @@ class EventDaoImpl implements EventDao {
         Event(id: '124', name: 'Evento 2', eventData: EventData(counter: 2)));
     events.add(
         Event(id: '125', name: 'Evento 3', eventData: EventData(counter: 3)));
+    events.add(
+        Event(id: '126', name: 'Evento 4', eventData: EventData(counter: 4)));
+    events.add(
+        Event(id: '127', name: 'Evento 5', eventData: EventData(counter: 5)));
+    events.add(
+        Event(id: '128', name: 'Evento 6', eventData: EventData(counter: 6)));
     return Future.value(events);
   }
 
