@@ -7,6 +7,7 @@ class User {
   final String id;
   final String name;
   final String lastname;
+  final String? photo;
   final DateTime birthdate;
   final String gender;
   final DateTime startDate;
@@ -22,6 +23,7 @@ class User {
     required this.birthdate,
     required this.gender,
     required this.startDate,
+    this.photo,
     this.club,
     this.watch,
     this.activities,

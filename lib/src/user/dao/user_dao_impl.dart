@@ -11,6 +11,8 @@ class UserDaoImpl extends UserDao {
         id: '111',
         name: 'Francesc',
         lastname: 'Muñoz Romero',
+        photo:
+            'https://lh3.googleusercontent.com/a/ACg8ocLhONyA0cuIi4L9VB_21T3Wa-7wPXNWj4AnsFP4GZXy-QZf=s288-c-no',
         birthdate: DateTime.now(),
         gender: 'M',
         startDate: DateTime.now());

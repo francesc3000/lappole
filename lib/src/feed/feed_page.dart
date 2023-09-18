@@ -7,7 +7,7 @@ class FeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Hola'),
+      child: Text('Aquí se muestra el ranking del club e interclubes'),
     );
   }
 }

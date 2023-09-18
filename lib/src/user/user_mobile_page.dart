@@ -41,7 +41,7 @@ class UserMobilePage extends UserBasicPage {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                UserDataWidget(),
+                Flexible(flex: 1, child: UserDataWidget()),
                 ClubWidget(),
                 WatchWidget(),
                 ThirdPartyWidget(),
