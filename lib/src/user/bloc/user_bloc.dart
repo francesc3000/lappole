@@ -20,7 +20,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<ClubPasswordChangeEvent>(_clubPasswordChangeEvent);
     on<AddDeleteClubEvent>(_addDeleteClubEvent);
     on<AddDeleteWatchEvent>(_addDeleteWatchEvent);
-    on<LoginStravaEvent>(_loginStravaEvent);
+    on<LoginThirdPartyEvent>(_loginThirdPartyEvent);
   }
 
   void _initUserDataEvent(InitUserDataEvent event, Emitter emit) async {
@@ -29,6 +29,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       _user = await _factoryDao.userDao.getUserData(_auth.userId ?? '');
 
       emit(UserIsLoginState(_user!));
+      emit(UploadUserInitState(_user!));
+
+      // emit(UploadUserActivitiesState(_user!.activities, _user!.hasActivities));
+      // emit(UploadUserClubState(_user!.club));
+      // emit(UploadUserWatchState(_user!.watch, _user!.canAddWatch));
+      // emit(UploadThirdPartyState(_user!.thirdParty, _user!.canThirdPartyLogin));
     }
   }
 
@@ -47,7 +53,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       _user!.club = Club(id: '222', name: _clubPassword);
     }
 
-    emit(_uploadUserFields());
+    emit(UploadUserClubLoginState(_user!));
   }
 
   void _addDeleteWatchEvent(AddDeleteWatchEvent event, Emitter emit) async {
@@ -58,15 +64,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       _user!.watch = Watch(id: '222', name: 'Garmin 1');
     }
 
-    emit(_uploadUserFields());
+    emit(UploadUserClubLoginState(_user!));
   }
 
-  void _loginStravaEvent(LoginStravaEvent event, Emitter emit) async {
+  void _loginThirdPartyEvent(LoginThirdPartyEvent event, Emitter emit) async {
     //TODO: Hacer
-    _user!.isStravaLogin = !_user!.isStravaLogin;
+    _user!.thirdParty.setLoginState();
 
-    emit(_uploadUserFields());
+    emit(UploadUserClubLoginState(_user!));
   }
-
-  UserState _uploadUserFields() => UploadUserFields(user: _user);
 }

@@ -20,9 +20,9 @@ class AddDeleteWatchEvent extends UserEvent {
   String toString() => 'AddDeleteWatch Event';
 }
 
-class LoginStravaEvent extends UserEvent {
+class LoginThirdPartyEvent extends UserEvent {
   @override
-  String toString() => 'LoginStrava Event';
+  String toString() => 'LoginThirdParty Event';
 }
 
 class ClubPasswordChangeEvent extends UserEvent {

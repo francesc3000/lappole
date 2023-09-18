@@ -1,4 +1,4 @@
-import 'package:lappole/src/model/club.dart';
+import 'package:lappole/src/model/activity.dart';
 import 'package:lappole/src/model/user.dart';
 
 abstract class UserState {}
@@ -16,12 +16,29 @@ class UserIsLoginState extends UserState {
   String toString() => 'UserIsLogin State';
 }
 
-class UploadUserFields extends UserState {
-  final User? user;
-  UploadUserFields({this.user});
+class UploadUserInitState extends UserState {
+  final User user;
+  UploadUserInitState(this.user);
 
   @override
-  String toString() => 'UploadUserFields State';
+  String toString() => 'UploadUserInit State';
+}
+
+class UploadUserActivitiesState extends UserState {
+  final List<Activity>? activities;
+  final bool hasActivities;
+
+  UploadUserActivitiesState(this.activities, this.hasActivities);
+  @override
+  String toString() => 'UploadUserActivities state';
+}
+
+class UploadUserClubLoginState extends UserState {
+  final User user;
+
+  UploadUserClubLoginState(this.user);
+  @override
+  String toString() => 'UploadUserClubLogin state';
 }
 
 class UserStateError extends UserState {
