@@ -4,11 +4,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/auth/auth.dart';
 import 'package:lappole/src/auth/auth_guard.dart';
 import 'package:lappole/src/dao/factory_dao.dart';
+import 'package:lappole/src/feed/feed_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/home_page.dart';
+import 'package:lappole/src/login/bloc/login_bloc.dart';
 import 'package:lappole/src/login/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lappole/src/main/bloc/main_bloc.dart';
+import 'package:lappole/src/main/main_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/user_page.dart';
 
@@ -17,6 +20,8 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Modular.setInitialRoute('/main');
+
     return MaterialApp.router(
       title: 'Lappole',
       theme: ThemeData(primarySwatch: Colors.green),
@@ -56,22 +61,33 @@ class AppModule extends Module {
         config: BindConfig(
           onDispose: (bloc) => bloc.close(),
         ));
+    i.addSingleton<LoginBloc>(LoginBloc.new,
+        config: BindConfig(
+          onDispose: (bloc) => bloc.close(),
+        ));
   }
 
   @override
   void routes(RouteManager r) {
     r.child('/',
         child: (context) => const HomePage(),
+        children: [
+          ChildRoute('/main',
+              child: (context) => const MainPage(),
+              transition: TransitionType.fadeIn),
+          ChildRoute('/ranking',
+              child: (context) => const FeedPage(),
+              guards: [AuthGuard()],
+              transition: TransitionType.fadeIn),
+          ChildRoute('/user',
+              child: (context) => const UserPage(),
+              guards: [AuthGuard()],
+              transition: TransitionType.fadeIn),
+          ChildRoute('/login',
+              child: (context) => const LoginPage(),
+              transition: TransitionType.fadeIn),
+        ],
         // guards: [AuthGuard()],
         transition: TransitionType.fadeIn);
-    r.child('/login',
-        child: (context) => const LoginPage(),
-        transition: TransitionType.fadeIn);
-    r.child('/user',
-        child: (context) => const UserPage(),
-        guards: [AuthGuard()],
-        transition: TransitionType.fadeIn);
-    r.module(Modular.initialRoute, module: module)
-    // r.module('/b-module', module: BModule());
   }
 }

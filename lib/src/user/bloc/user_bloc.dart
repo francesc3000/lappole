@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/auth/auth.dart';
 import 'package:lappole/src/dao/factory_dao.dart';
+import 'package:lappole/src/login/bloc/login_bloc.dart';
+import 'package:lappole/src/login/bloc/login_state.dart';
 import 'package:lappole/src/model/club.dart';
 import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/model/watch.dart';
@@ -10,9 +14,11 @@ import 'package:lappole/src/user/bloc/user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final _auth = Modular.get<Auth>();
+  final loginBloc = Modular.get<LoginBloc>();
   final _factoryDao = Modular.get<FactoryDao>();
   User? _user;
   String _clubPassword = '';
+  StreamSubscription<LoginState>? streamSubscription;
 
   UserBloc() : super(UserInitState()) {
     on<UserEventEmpty>((event, emit) => emit(UserInitState()));
@@ -21,6 +27,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<AddDeleteClubEvent>(_addDeleteClubEvent);
     on<AddDeleteWatchEvent>(_addDeleteWatchEvent);
     on<LoginThirdPartyEvent>(_loginThirdPartyEvent);
+
+    streamSubscription = loginBloc.stream.listen((state) {
+      if (state is LoginSuccessState) {
+        add(InitUserDataEvent());
+      }
+    });
   }
 
   void _initUserDataEvent(InitUserDataEvent event, Emitter emit) async {
@@ -30,11 +42,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       emit(UserIsLoginState(_user!));
       emit(UploadUserInitState(_user!));
-
-      // emit(UploadUserActivitiesState(_user!.activities, _user!.hasActivities));
-      // emit(UploadUserClubState(_user!.club));
-      // emit(UploadUserWatchState(_user!.watch, _user!.canAddWatch));
-      // emit(UploadThirdPartyState(_user!.thirdParty, _user!.canThirdPartyLogin));
     }
   }
 

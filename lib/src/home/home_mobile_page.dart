@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lappole/src/feed/feed_page.dart';
 import 'package:lappole/src/home/home_basic_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/bloc/home_state.dart';
-import 'package:lappole/src/main/main_page.dart';
-import 'package:lappole/src/user/user_page.dart';
 
 class HomeMobilePage extends HomeBasicPage {
   final _pageController = PageController(initialPage: 0);
@@ -35,10 +32,9 @@ class HomeMobilePage extends HomeBasicPage {
 
   /// widget list
   final List<Widget> bottomBarPages = [
-    // ModularApp(module: AppModule(), child: const AppWidget()),
-    const MainPage(),
-    const FeedPage(),
-    const UserPage(),
+    const RouterOutlet(),
+    const RouterOutlet(),
+    const RouterOutlet(),
   ];
 
   @override
@@ -47,26 +43,28 @@ class HomeMobilePage extends HomeBasicPage {
         bloc: homeBloc,
         listener: (context, state) {
           if (state is HomeInitState) {
-          } else if (state is UploadHomeFields) {
-            Navigator.of(context).pushNamed('/user');
-          }
-        },
-        builder: (BuildContext context, state) {
-          int currentIndex = 0;
-          bool loading = false;
-
-          if (state is HomeInitState) {
-            loading = true;
-          } else if (state is UploadHomeFields) {
-            loading = false;
-            currentIndex = state.index;
-            if (_pageController.hasClients) {
-              _pageController.jumpToPage(currentIndex);
+          } else if (state is ChangeTabSuccessState) {
+            switch (state.index) {
+              case 1:
+                Modular.to.navigate('/ranking');
+                break;
+              case 2:
+                Modular.to.navigate('/user');
+                break;
+              default:
+                Modular.to.navigate('/main');
             }
           }
-
-          if (loading) {
-            return const Center(child: CircularProgressIndicator());
+        },
+        buildWhen: (previous, state) {
+          return state is ChangeTabSuccessState;
+        },
+        builder: (BuildContext context, state) {
+          if (state is HomeInitState) {
+          } else if (state is ChangeTabSuccessState) {
+            if (_pageController.hasClients) {
+              _pageController.jumpToPage(state.index);
+            }
           }
 
           return PageView(

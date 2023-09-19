@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lappole/src/feed/feed_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/home/home_basic_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
-import 'package:lappole/src/home/bloc/home_event.dart';
 import 'package:lappole/src/home/bloc/home_state.dart';
 
 class HomeDesktopPage extends HomeBasicPage {
+  final _pageController = PageController(initialPage: 0);
   HomeDesktopPage(String title, {Key? key}) : super(title, key: key);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {String? title}) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 140, 71, 153),
+      // backgroundColor: const Color.fromARGB(255, 140, 71, 153),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(100),
         child: const SizedBox(
@@ -28,41 +27,60 @@ class HomeDesktopPage extends HomeBasicPage {
         ),
       ),
       title: Text(title!),
-      actions: [
-        IconButton(
-            onPressed: () =>
-                BlocProvider.of<HomeBloc>(context).add(ChangeTabEvent(5)),
-            icon: const Icon(FontAwesomeIcons.solidUser))
-      ],
     );
   }
 
+  /// widget list
+  final List<Widget> bottomBarPages = [
+    const RouterOutlet(),
+    const RouterOutlet(),
+    const RouterOutlet(),
+  ];
+
   @override
   Widget body(BuildContext context) {
-    Widget? feedPage;
-    feedPage ??= const FeedPage();
-    List<Widget?> pages = [
-      feedPage,
-    ];
-
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocConsumer<HomeBloc, HomeState>(
+        bloc: homeBloc,
+        listener: (context, state) {
+          if (state is HomeInitState) {
+          } else if (state is ChangeTabSuccessState) {
+            switch (state.index) {
+              case 1:
+                Modular.to.navigate('/ranking');
+                break;
+              case 2:
+                Modular.to.navigate('/user');
+                break;
+              default:
+            }
+          }
+        },
+        buildWhen: (previous, state) {
+          return state is ChangeTabSuccessState;
+        },
         builder: (BuildContext context, state) {
-      int? currentIndex = 0;
-      bool loading = false;
+          int currentIndex = 0;
 
-      if (state is HomeInitState) {
-        loading = true;
-        // BlocProvider.of<AuthBloc>(context).add(AutoLogInEvent());
-      } else if (state is UploadHomeFields) {
-        loading = false;
-        currentIndex = state.index;
-      }
+          if (state is HomeInitState) {
+          } else if (state is ChangeTabSuccessState) {
+            // loading = false;
+            currentIndex = state.index;
+            if (_pageController.hasClients) {
+              _pageController.jumpToPage(currentIndex);
+            }
+          }
 
-      if (loading) {
-        return const Center(child: CircularProgressIndicator());
-      }
+          return PageView(
+            controller: _pageController,
+            children: List.generate(
+                bottomBarPages.length, (index) => bottomBarPages[index]),
+          );
+        });
+  }
 
-      return pages[currentIndex]!;
-    });
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

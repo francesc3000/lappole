@@ -5,14 +5,12 @@ class HomeInitState extends HomeState {
   String toString() => 'HomeInitState';
 }
 
-class UploadHomeFields extends HomeState {
+class ChangeTabSuccessState extends HomeState {
   final int index;
-
-  UploadHomeFields(
-      {required this.index});
+  ChangeTabSuccessState(this.index);
 
   @override
-  String toString() => 'UploadHomeFields State';
+  String toString() => 'ChangeTabSuccess State';
 }
 
 class HomeStateError extends HomeState {

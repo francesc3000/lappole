@@ -31,7 +31,7 @@ class UserDataWidget extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.all(8.0),
             child: ExpansionTileCard(
-              leading: ImageNetwork().build(user!.photo),
+              // leading: ImageNetwork().build(user!.photo),
               title: Text('${user!.name} ${user!.lastname}'),
               children: [
                 Column(
