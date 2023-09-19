@@ -40,13 +40,13 @@ class WatchWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Text('Reloj'),
+                  const Text('Reloj'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Visibility(
                         visible: isWatchNull,
-                        child: Text('No tienes ningun reloj emparejado'),
+                        child: const Text('No tienes ningun reloj emparejado'),
                       ),
                       Visibility(
                         visible: !isWatchNull,

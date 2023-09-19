@@ -36,17 +36,17 @@ class ThirdPartyWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Text('Strava'),
+                  const Text('Health Connect'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Visibility(
-                        child: Text('Emparejar cuenta Strava'),
                         visible: !thirdParty!.isLogin,
+                        child: const Text('Registrar Health Connect'),
                       ),
                       Visibility(
-                        child: Text('Emparejado'),
                         visible: thirdParty!.isLogin,
+                        child: const Text('Salir'),
                       ),
                       AddDeleteWidget(
                         isObjectNull: !thirdParty!.isLogin,

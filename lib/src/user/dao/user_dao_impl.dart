@@ -20,11 +20,23 @@ class UserDaoImpl extends UserDao {
     user.watch = Watch(id: '5678', name: 'Garmin 1');
     // user.thirdParty.setLoginState();
     user.activities = [
-      Activity(id: '441', name: 'Actividad 1', distance: 10),
-      Activity(id: '442', name: 'Actividad 2', distance: 20),
+      Activity(
+          id: '441',
+          name: 'Actividad 1',
+          startDate: DateTime.now(),
+          endDate: DateTime.now(),
+          distance: 10),
+      Activity(
+          id: '442',
+          name: 'Actividad 2',
+          startDate: DateTime.now(),
+          endDate: DateTime.now(),
+          distance: 20),
       Activity(
           id: '443',
           name: 'Actividad 3',
+          startDate: DateTime.now(),
+          endDate: DateTime.now(),
           distance: 30,
           observation: 'Se solapa con la Actividad 2'),
     ];

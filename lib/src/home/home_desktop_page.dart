@@ -8,8 +8,7 @@ import 'package:lappole/src/home/bloc/home_event.dart';
 import 'package:lappole/src/home/bloc/home_state.dart';
 
 class HomeDesktopPage extends HomeBasicPage {
-  HomeDesktopPage(String title, {Key? key})
-      : super(title, key: key);
+  HomeDesktopPage(String title, {Key? key}) : super(title, key: key);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {String? title}) {
@@ -17,7 +16,7 @@ class HomeDesktopPage extends HomeBasicPage {
       backgroundColor: const Color.fromARGB(255, 140, 71, 153),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: Container(
+        child: const SizedBox(
           // decoration: const BoxDecoration(
           //   image: DecorationImage(
           //     image: AssetImage('assets/images/race/logoYoCorro.webp'),
@@ -48,22 +47,22 @@ class HomeDesktopPage extends HomeBasicPage {
 
     return BlocBuilder<HomeBloc, HomeState>(
         builder: (BuildContext context, state) {
-          int? currentIndex = 0;
-          bool loading = false;
+      int? currentIndex = 0;
+      bool loading = false;
 
-          if (state is HomeInitState) {
-            loading = true;
-            // BlocProvider.of<AuthBloc>(context).add(AutoLogInEvent());
-          } else if (state is UploadHomeFields) {
-            loading = false;
-            currentIndex = state.index;
-          }
+      if (state is HomeInitState) {
+        loading = true;
+        // BlocProvider.of<AuthBloc>(context).add(AutoLogInEvent());
+      } else if (state is UploadHomeFields) {
+        loading = false;
+        currentIndex = state.index;
+      }
 
-          // if (loading) {
-          //   return const Center(child: CircularProgressIndicator());
-          // }
+      if (loading) {
+        return const Center(child: CircularProgressIndicator());
+      }
 
-          return pages[currentIndex]!;
-        });
+      return pages[currentIndex]!;
+    });
   }
 }

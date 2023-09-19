@@ -54,7 +54,7 @@ class ClubWidget extends StatelessWidget {
                       child: Visibility(
                         visible: !isClubNull,
                         child: Column(children: [
-                          Text('Nombre: ${club?.name ?? ''}'),
+                          Text(club?.name ?? ''),
                         ]),
                       ),
                     ),

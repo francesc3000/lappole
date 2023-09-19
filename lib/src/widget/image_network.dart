@@ -5,13 +5,13 @@ import 'package:shimmer/shimmer.dart';
 class ImageNetwork {
   Widget build(String? imageUrl) {
     return CachedNetworkImage(
-      width: 10,
-      height: 10,
+      width: 30,
+      height: 30,
       imageUrl: imageUrl!,
       placeholder: (context, url) => Shimmer.fromColors(
         baseColor: Colors.red,
         highlightColor: Colors.yellow,
-        child: Text(
+        child: const Text(
           'Shimmer',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -20,7 +20,7 @@ class ImageNetwork {
           ),
         ),
       ),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 }

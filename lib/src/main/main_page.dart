@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:lappole/src/main/bloc/main_bloc.dart';
-import 'package:lappole/src/main/bloc/main_state.dart';
 
 import 'main_desktop_page.dart';
 import 'main_mobile_page.dart';

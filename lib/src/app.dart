@@ -71,6 +71,7 @@ class AppModule extends Module {
         child: (context) => const UserPage(),
         guards: [AuthGuard()],
         transition: TransitionType.fadeIn);
+    r.module(Modular.initialRoute, module: module)
     // r.module('/b-module', module: BModule());
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:lappole/src/model/activity.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
@@ -47,7 +48,18 @@ class UserActivitiesWidget extends StatelessWidget {
                     ),
                     title: Text(activity.name),
                     children: [
-                      Text('${activity.distance} km'),
+                      Text(
+                          'Fecha: ${DateFormat.yMd().format(activity.startDate)}'),
+                      Text(
+                          'Hora Inicio: ${DateFormat.Hm().format(activity.startDate)}'),
+                      Visibility(
+                        visible: activity.startEndDateNotEqual,
+                        child: Text(
+                            'Fecha Fin: ${DateFormat.yMd().format(activity.endDate)}'),
+                      ),
+                      Text(
+                          'Hora Fin: ${DateFormat.Hm().format(activity.endDate)}'),
+                      Text('Distancia: ${activity.distance} km'),
                       Visibility(
                         visible: activity.hasObservation,
                         child: Text(activity.observation ?? ''),

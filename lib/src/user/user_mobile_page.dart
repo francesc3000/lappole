@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/user/widget/club_widget.dart';
 import 'package:lappole/src/user/user_basic_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
@@ -16,7 +15,6 @@ class UserMobilePage extends UserBasicPage {
 
   @override
   Widget body(BuildContext context) {
-    User? user;
     return BlocBuilder<UserBloc, UserState>(
         bloc: userBloc,
         buildWhen: (context, state) {
@@ -30,7 +28,6 @@ class UserMobilePage extends UserBasicPage {
             userBloc.add(InitUserDataEvent());
           } else if (state is UserIsLoginState) {
             loading = false;
-            user = state.user;
           } else if (state is UserStateError) {}
 
           if (loading) {
@@ -45,7 +42,7 @@ class UserMobilePage extends UserBasicPage {
                 ClubWidget(),
                 WatchWidget(),
                 ThirdPartyWidget(),
-                Flexible(flex: 1, child: UserActivitiesWidget()),
+                Flexible(flex: 2, child: UserActivitiesWidget()),
               ],
             ),
           );
