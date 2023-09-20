@@ -22,10 +22,12 @@ class UserDataWidget extends StatelessWidget {
           return state is UserIsLoginState;
         },
         builder: (BuildContext context, state) {
+          String version = '';
           if (state is UploadUserInitState) {
             user = state.user;
           } else if (state is UploadUserInitState) {
             user = state.user;
+            version = state.version;
           }
 
           return Container(
@@ -40,6 +42,7 @@ class UserDataWidget extends StatelessWidget {
                     Text(
                         'Fecha Nacimiento: ${DateFormat.yMd().format(user!.birthdate)}'),
                     Text('Sexo: ${user!.gender}'),
+                    Text('Versión: $version'),
                   ],
                 )
               ],

@@ -9,7 +9,8 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
-  // FactoryDao factoryDao = FactoryDao();
+
+  // WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider<HomeBloc>(

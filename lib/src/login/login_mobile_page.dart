@@ -24,9 +24,36 @@ class LoginMobilePage extends LoginBasicPage {
           return state is LoginSuccessState;
         },
         builder: (BuildContext context, state) {
-          return ElevatedButton(
-              onPressed: () => loginBloc.add(UserLoginEvent()),
-              child: const Text('Registrame'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => loginBloc.add(UserLoginEvent()),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    fixedSize: MaterialStateProperty.all(
+                      const Size(105, 35),
+                    ),
+                  ),
+                  child: const Text('Google'),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () => loginBloc.add(UserLoginEvent()),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black),
+                    fixedSize: MaterialStateProperty.all(
+                      const Size(105, 35),
+                    ),
+                  ),
+                  child: const Text('Apple'),
+                ),
+              ],
+            ),
+          );
         });
   }
 }

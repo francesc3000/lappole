@@ -36,13 +36,13 @@ class MainMobilePage extends MainBasicPage {
             mainBloc.add(MainInitialDataEvent());
           } else if (state is UploadMainFields) {
             events = state.events;
-            if (_scrollController.hasClients) {
-              _scrollController.animateTo(
-                _scrollController.position.maxScrollExtent,
-                curve: Curves.easeOut,
-                duration: const Duration(milliseconds: 500),
-              );
-            }
+            // if (_scrollController.hasClients) {
+            //   _scrollController.animateTo(
+            //     _scrollController.position.maxScrollExtent,
+            //     curve: Curves.easeOut,
+            //     duration: const Duration(milliseconds: 500),
+            //   );
+            // }
           }
 
           if (loading) {
