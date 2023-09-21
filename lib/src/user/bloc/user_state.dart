@@ -18,8 +18,7 @@ class UserIsLoginState extends UserState {
 
 class UploadUserInitState extends UserState {
   final User user;
-  final String version;
-  UploadUserInitState(this.user, this.version);
+  UploadUserInitState(this.user);
 
   @override
   String toString() => 'UploadUserInit State';

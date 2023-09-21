@@ -7,11 +7,37 @@ import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/bloc/home_event.dart';
 
 abstract class HomeBasicPage extends BasicPage implements Disposable {
+  final String version;
+
   final controller = NotchBottomBarController(index: 0);
   final homeBloc = Modular.get<HomeBloc>();
 
-  HomeBasicPage(String title, {Key? key})
+  HomeBasicPage(String title, this.version, {Key? key})
       : super(title, key: key, safeArea: true, extendBody: true);
+
+  @override
+  PreferredSizeWidget? appBar(BuildContext context, {String? title}) {
+    return AppBar(
+      // backgroundColor: const Color.fromARGB(255, 140, 71, 153),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: const SizedBox(
+          // decoration: const BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage('assets/images/race/logoYoCorro.webp'),
+          //   ),
+          //   borderRadius: BorderRadius.all(Radius.circular(10)),
+          // ),
+          height: 50,
+          width: 50,
+        ),
+      ),
+      title: Text(title!),
+      actions: [
+        Center(child: Text('Versión: $version')),
+      ],
+    );
+  }
 
   @override
   Widget? bottomNavigationBar(BuildContext context) {

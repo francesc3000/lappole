@@ -1,9 +1,8 @@
-abstract class HomeEvent{
-}
+abstract class HomeEvent {}
 
-class HomeEventEmpty extends HomeEvent{
+class HomeInitDataEvent extends HomeEvent {
   @override
-  String toString() => 'Empty Event';
+  String toString() => 'HomeInitData Event';
 }
 
 class ChangeTabEvent extends HomeEvent {

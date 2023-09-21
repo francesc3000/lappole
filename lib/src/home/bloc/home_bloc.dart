@@ -6,6 +6,7 @@ import 'package:lappole/src/home/bloc/home_event.dart';
 import 'package:lappole/src/home/bloc/home_state.dart';
 import 'package:lappole/src/login/bloc/login_bloc.dart';
 import 'package:lappole/src/login/bloc/login_state.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final loginBloc = Modular.get<LoginBloc>();
@@ -13,7 +14,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   StreamSubscription<LoginState>? streamSubscription;
 
   HomeBloc() : super(HomeInitState()) {
-    on<HomeEventEmpty>((event, emit) => emit(HomeInitState()));
+    on<HomeInitDataEvent>(_homeInitDataEvent);
     on<ChangeTabEvent>(_changeTabEvent);
 
     streamSubscription = loginBloc.stream.listen((state) {
@@ -21,6 +22,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         add(ChangeTabEvent(_currentIndex));
       }
     });
+  }
+
+  void _homeInitDataEvent(HomeInitDataEvent event, Emitter emit) async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
+    emit(VersionDataState('Alpha-$version+$buildNumber'));
   }
 
   void _changeTabEvent(ChangeTabEvent event, Emitter emit) async {

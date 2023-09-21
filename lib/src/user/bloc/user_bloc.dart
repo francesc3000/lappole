@@ -11,7 +11,6 @@ import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/model/watch.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final _auth = Modular.get<Auth>();
@@ -41,13 +40,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       //TODO: Quitar ?? '' cuando Auth este funcionando
       _user = await _factoryDao.userDao.getUserData(_auth.userId ?? '');
 
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      String version = packageInfo.version;
-      String buildNumber = packageInfo.buildNumber;
-
       emit(UserIsLoginState(_user!));
-      emit(UploadUserInitState(_user!, '$version+$buildNumber'));
+      emit(UploadUserInitState(_user!));
     }
   }
 

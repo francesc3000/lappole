@@ -7,7 +7,8 @@ import 'package:lappole/src/home/bloc/home_state.dart';
 
 class HomeDesktopPage extends HomeBasicPage {
   final _pageController = PageController(initialPage: 0);
-  HomeDesktopPage(String title, {Key? key}) : super(title, key: key);
+  HomeDesktopPage(String title, String version, {Key? key})
+      : super(title, version, key: key);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {String? title}) {

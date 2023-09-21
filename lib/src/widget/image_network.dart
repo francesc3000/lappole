@@ -2,8 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ImageNetwork {
-  Widget build(String? imageUrl) {
+class ImageNetwork extends StatelessWidget {
+  final String? imageUrl;
+
+  const ImageNetwork({super.key, this.imageUrl});
+  @override
+  Widget build(BuildContext context) {
     return CachedNetworkImage(
       width: 30,
       height: 30,

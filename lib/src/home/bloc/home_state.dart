@@ -5,6 +5,14 @@ class HomeInitState extends HomeState {
   String toString() => 'HomeInitState';
 }
 
+class VersionDataState extends HomeState {
+  final String version;
+  VersionDataState(this.version);
+
+  @override
+  String toString() => 'VersionData State';
+}
+
 class ChangeTabSuccessState extends HomeState {
   final int index;
   ChangeTabSuccessState(this.index);
