@@ -5,7 +5,7 @@ import 'package:lappole/src/main/bloc/main_bloc.dart';
 import 'package:lappole/src/main/bloc/main_event.dart';
 import 'package:lappole/src/main/bloc/main_state.dart';
 import 'package:lappole/src/main/widget/stage_widget.dart';
-import 'package:lappole/src/model/event.dart';
+import 'package:lappole/src/model/stage.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class MainMobilePage extends MainBasicPage {
@@ -24,15 +24,15 @@ class MainMobilePage extends MainBasicPage {
         buildWhen: (previous, state) => state is UploadMainFields,
         builder: (BuildContext context, state) {
           bool loading = false;
-          List<Event>? events;
+          List<Stage>? stages;
 
           if (state is MainInitState) {
             loading = true;
             mainBloc.add(MainInitialDataEvent());
           } else if (state is UploadMainFields) {
-            events = state.events;
-            controller.scrollToIndex(2,
-                preferPosition: AutoScrollPosition.begin);
+            stages = state.stages;
+            controller.scrollToIndex(state.currentStageIndex,
+                preferPosition: AutoScrollPosition.middle);
           }
 
           if (loading) {
@@ -46,9 +46,9 @@ class MainMobilePage extends MainBasicPage {
               controller: controller,
               shrinkWrap: true,
               // physics: const PageScrollPhysics(),
-              itemCount: events?.length ?? 0,
+              itemCount: stages?.length ?? 0,
               itemBuilder: (context, index) {
-                Event event = events![index];
+                Stage event = stages![index];
                 return AutoScrollTag(
                   key: ValueKey(index),
                   controller: controller,
@@ -60,12 +60,14 @@ class MainMobilePage extends MainBasicPage {
                       children: [
                         Text(event.name),
                         event.hasData
-                            ? Text(event.eventData!.counter.round().toString())
+                            ? Text(event.stageData!.counter.round().toString())
                             : Container(),
                         StageWidget(
-                          onPressed: () => event.hasData
+                          onPressedUploadKm: () => event.hasData
                               ? mainBloc.add(AddKmEvent(event.id))
                               : null,
+                          onPressedNavigate: null,
+                          hasPendingKm: false,
                         ),
                       ],
                     ),

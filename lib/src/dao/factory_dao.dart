@@ -1,6 +1,6 @@
-import 'package:lappole/src/dao/event_dao.dart';
+import 'package:lappole/src/dao/stage_dao.dart';
 import 'package:lappole/src/dao/user_dao.dart';
-import 'package:lappole/src/main/dao/event_dao_impl.dart';
+import 'package:lappole/src/main/dao/stage_dao_impl.dart';
 import 'package:lappole/src/user/dao/user_dao_impl.dart';
 
 class FactoryDao {
@@ -8,11 +8,11 @@ class FactoryDao {
   // final FirestoreRepositoryImpl _firestore = FirestoreRepositoryImpl();
 
   late UserDao userDao;
-  late EventDao eventDao;
+  late StageDao stageDao;
 
   FactoryDao() {
     userDao = UserDaoImpl();
-    eventDao = EventDaoImpl();
+    stageDao = StageDaoImpl();
     //   feedDao = FeedDaoImpl(_firestore);
   }
 }
