@@ -18,28 +18,25 @@ class UserDaoImpl extends UserDao {
         startDate: DateTime.now());
     user.club = Club(id: '1234', name: 'Mejor Equipo');
     user.watch = Watch(id: '5678', name: 'Garmin 1');
-    // user.thirdParty.setLoginState();
-    user.activities = [
-      Activity(
-          id: '441',
-          name: 'Actividad 1',
-          startDate: DateTime.now(),
-          endDate: DateTime.now(),
-          distance: 10),
-      Activity(
-          id: '442',
-          name: 'Actividad 2',
-          startDate: DateTime.now(),
-          endDate: DateTime.now(),
-          distance: 20),
-      Activity(
-          id: '443',
-          name: 'Actividad 3',
-          startDate: DateTime.now(),
-          endDate: DateTime.now(),
-          distance: 30,
-          observation: 'Se solapa con la Actividad 2'),
-    ];
+
+    Activity activity1 = Activity(
+        id: '441',
+        name: 'Actividad 1',
+        startDate: DateTime.now().subtract(const Duration(days: 6)),
+        endDate: DateTime.now().subtract(const Duration(days: 5)),
+        distance: 11);
+
+    Activity activity2 = Activity(
+        id: '442',
+        name: 'Actividad 2',
+        startDate: DateTime.now().subtract(const Duration(days: 3)),
+        endDate: DateTime.now(),
+        distance: 22);
+
+    activity1.markAsUploaded();
+    // activity2.markAsUploaded();
+
+    user.activities = [activity1, activity2];
     return Future.value(user);
   }
 

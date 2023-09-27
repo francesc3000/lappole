@@ -16,15 +16,15 @@ class UserDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user;
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocConsumer<UserBloc, UserState>(
         bloc: userBloc,
-        buildWhen: (context, state) {
-          return state is UserIsLoginState;
+        listenWhen: (previous, current) => true,
+        listener: (context, state) {},
+        buildWhen: (previous, state) {
+          return state is UploadUserInitState;
         },
         builder: (BuildContext context, state) {
           if (state is UploadUserInitState) {
-            user = state.user;
-          } else if (state is UploadUserInitState) {
             user = state.user;
           }
 

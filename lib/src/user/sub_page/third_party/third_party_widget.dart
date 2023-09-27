@@ -2,31 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/model/third_party.dart';
-import 'package:lappole/src/user/bloc/user_bloc.dart';
-import 'package:lappole/src/user/bloc/user_event.dart';
-import 'package:lappole/src/user/bloc/user_state.dart';
+import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_bloc.dart';
+import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_event.dart';
+import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_state.dart';
 import 'package:lappole/src/user/widget/add_delete_widget.dart';
 
 class ThirdPartyWidget extends StatelessWidget {
-  final userBloc = Modular.get<UserBloc>();
+  final userClubBloc = Modular.get<UserClubBloc>();
 
   ThirdPartyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     ThirdParty? thirdParty;
-    return BlocBuilder<UserBloc, UserState>(
-        bloc: userBloc,
+    return BlocBuilder<UserClubBloc, UserClubState>(
+        bloc: userClubBloc,
         buildWhen: (context, state) {
           return state is UploadUserClubLoginState;
         },
         builder: (BuildContext context, state) {
           bool canThirdPartyLogin = false;
 
-          if (state is UploadUserInitState) {
-            thirdParty = state.user.thirdParty;
-            canThirdPartyLogin = state.user.canThirdPartyLogin;
-          } else if (state is UploadUserClubLoginState) {
+          if (state is UploadUserClubLoginState) {
             thirdParty = state.user.thirdParty;
             canThirdPartyLogin = state.user.canThirdPartyLogin;
           }
@@ -50,7 +47,7 @@ class ThirdPartyWidget extends StatelessWidget {
                       ),
                       AddDeleteWidget(
                         isObjectNull: !thirdParty!.isLogin,
-                        onTap: () => userBloc.add(LoginThirdPartyEvent()),
+                        onTap: () => userClubBloc.add(LoginThirdPartyEvent()),
                       ),
                     ],
                   ),

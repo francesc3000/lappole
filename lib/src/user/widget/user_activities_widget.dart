@@ -41,27 +41,36 @@ class UserActivitiesWidget extends StatelessWidget {
                   Activity activity = activities![index];
                   return ExpansionTileCard(
                     leading: Icon(
-                      index == 2
-                          ? FontAwesomeIcons.xmark
-                          : FontAwesomeIcons.arrowUp,
-                      color: index == 2 ? Colors.red : Colors.green,
+                      !activity.isValid
+                          ? FontAwesomeIcons.cloud
+                          : activity.isUploaded
+                              ? FontAwesomeIcons.cloud
+                              : FontAwesomeIcons.cloudArrowUp,
+                      color: !activity.isValid ? Colors.red : Colors.green,
                     ),
                     title: Text(activity.name),
                     children: [
-                      Text(
-                          'Fecha: ${DateFormat.yMd().format(activity.startDate)}'),
-                      Text(
-                          'Hora Inicio: ${DateFormat.Hm().format(activity.startDate)}'),
-                      Visibility(
-                        visible: activity.startEndDateNotEqual,
-                        child: Text(
-                            'Fecha Fin: ${DateFormat.yMd().format(activity.endDate)}'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                              'Fecha Inicio: ${DateFormat.yMd().format(activity.startDate)}'),
+                          Text(
+                              'Fecha Fin: ${DateFormat.yMd().format(activity.endDate)}'),
+                        ],
                       ),
-                      Text(
-                          'Hora Fin: ${DateFormat.Hm().format(activity.endDate)}'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                              'Hora Inicio: ${DateFormat.Hm().format(activity.startDate)}'),
+                          Text(
+                              'Hora Fin: ${DateFormat.Hm().format(activity.endDate)}'),
+                        ],
+                      ),
                       Text('Distancia: ${activity.distance} km'),
                       Visibility(
-                        visible: activity.hasObservation,
+                        visible: !activity.isValid,
                         child: Text(activity.observation ?? ''),
                       ),
                     ],

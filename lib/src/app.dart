@@ -4,15 +4,18 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/auth/auth.dart';
 import 'package:lappole/src/auth/auth_guard.dart';
 import 'package:lappole/src/dao/factory_dao.dart';
-import 'package:lappole/src/feed/feed_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/home_page.dart';
 import 'package:lappole/src/login/bloc/login_bloc.dart';
 import 'package:lappole/src/login/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lappole/src/main/bloc/main_bloc.dart';
-import 'package:lappole/src/main/main_page.dart';
+import 'package:lappole/src/ranking/bloc/ranking_bloc.dart';
+import 'package:lappole/src/ranking/ranking_page.dart';
+import 'package:lappole/src/stage/bloc/stage_bloc.dart';
+import 'package:lappole/src/stage/stage_page.dart';
+import 'package:lappole/src/stage_detail/stage_detail_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
+import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_bloc.dart';
 import 'package:lappole/src/user/user_page.dart';
 
 class AppWidget extends StatelessWidget {
@@ -23,7 +26,7 @@ class AppWidget extends StatelessWidget {
     Modular.setInitialRoute('/main');
 
     return MaterialApp.router(
-      title: 'Lappole',
+      title: 'La Pole',
       theme: ThemeData(primarySwatch: Colors.green),
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -49,22 +52,43 @@ class AppModule extends Module {
     i.addSingleton(Auth.new);
     i.addSingleton(FactoryDao.new);
     // Bloc
-    i.addSingleton<HomeBloc>(HomeBloc.new,
-        config: BindConfig(
-          onDispose: (bloc) => bloc.close(),
-        ));
-    i.addSingleton<MainBloc>(MainBloc.new,
-        config: BindConfig(
-          onDispose: (bloc) => bloc.close(),
-        ));
-    i.addSingleton<UserBloc>(UserBloc.new,
-        config: BindConfig(
-          onDispose: (bloc) => bloc.close(),
-        ));
-    i.addSingleton<LoginBloc>(LoginBloc.new,
-        config: BindConfig(
-          onDispose: (bloc) => bloc.close(),
-        ));
+    i.addSingleton<HomeBloc>(
+      HomeBloc.new,
+      // config: BindConfig(
+      //   onDispose: (bloc) => bloc.close(),
+      // ),
+    );
+    i.addSingleton<StageBloc>(
+      StageBloc.new,
+      // config: BindConfig(
+      //   onDispose: (bloc) => bloc.close(),
+      // ),
+    );
+    i.addSingleton<UserBloc>(
+      UserBloc.new,
+      // config: BindConfig(
+      // notifier: (bloc) => bloc.stream,
+      // onDispose: (bloc) => bloc.close(),
+      // )
+    );
+    i.addSingleton<UserClubBloc>(
+      UserClubBloc.new,
+      // config: BindConfig(
+      //   onDispose: (bloc) => bloc.close(),
+      // ),
+    );
+    i.addSingleton<LoginBloc>(
+      LoginBloc.new,
+      // config: BindConfig(
+      //   onDispose: (bloc) => bloc.close(),
+      // ),
+    );
+    i.addSingleton<RankingBloc>(
+      RankingBloc.new,
+      // config: BindConfig(
+      //   onDispose: (bloc) => bloc.close(),
+      // ),
+    );
   }
 
   @override
@@ -73,10 +97,10 @@ class AppModule extends Module {
         child: (context) => HomePage(),
         children: [
           ChildRoute('/main',
-              child: (context) => const MainPage(),
+              child: (context) => const StagePage(),
               transition: TransitionType.fadeIn),
           ChildRoute('/ranking',
-              child: (context) => const FeedPage(),
+              child: (context) => const RankingPage(),
               guards: [AuthGuard()],
               transition: TransitionType.fadeIn),
           ChildRoute('/user',
@@ -88,6 +112,9 @@ class AppModule extends Module {
               transition: TransitionType.fadeIn),
         ],
         // guards: [AuthGuard()],
+        transition: TransitionType.fadeIn);
+    r.child('/stageDetail',
+        child: (context) => StageDetailPage(),
         transition: TransitionType.fadeIn);
   }
 }

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 abstract class BasicPage extends StatelessWidget {
   final String title;
-  final bool safeArea;
   final bool extendBody;
 
-  const BasicPage(this.title,
-      {Key? key, this.safeArea = false, this.extendBody = false})
+  const BasicPage(this.title, {Key? key, this.extendBody = false})
       : super(key: key);
 
   PreferredSizeWidget? appBar(BuildContext context, {String? title});
@@ -18,26 +16,15 @@ abstract class BasicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (safeArea) {
-      return SafeArea(
-        child: Scaffold(
-          appBar: appBar(context, title: title),
-          body: body(context),
-          extendBody: extendBody,
-          floatingActionButton: floatingActionButton(context),
-          floatingActionButtonLocation: floatingActionButtonLocation(context),
-          bottomNavigationBar: bottomNavigationBar(context),
-        ),
-      );
-    } else {
-      return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         appBar: appBar(context, title: title),
         body: body(context),
         extendBody: extendBody,
         floatingActionButton: floatingActionButton(context),
         floatingActionButtonLocation: floatingActionButtonLocation(context),
         bottomNavigationBar: bottomNavigationBar(context),
-      );
-    }
+      ),
+    );
   }
 }

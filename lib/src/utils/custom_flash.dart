@@ -1,5 +1,6 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomFlash {
   final BuildContext context;
@@ -8,10 +9,11 @@ class CustomFlash {
 
   void show(
       {required String message,
-      required IconData iconData,
-      required Color color}) {
+      IconData iconData = FontAwesomeIcons.circleXmark,
+      Color color = Colors.red}) {
     showModalFlash(
       context: context,
+      duration: const Duration(seconds: 2),
       builder: (context, controller) {
         return Align(
           alignment: AlignmentDirectional.centerStart,

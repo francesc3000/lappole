@@ -1,19 +1,19 @@
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lappole/src/basic_page.dart';
 import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/bloc/home_event.dart';
+import 'package:lappole/src/home/bloc/home_state.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 abstract class HomeBasicPage extends BasicPage implements Disposable {
   final String version;
-
-  final controller = NotchBottomBarController(index: 0);
   final homeBloc = Modular.get<HomeBloc>();
 
   HomeBasicPage(String title, this.version, {Key? key})
-      : super(title, key: key, safeArea: true, extendBody: true);
+      : super(title, key: key, extendBody: true);
 
   @override
   PreferredSizeWidget? appBar(BuildContext context, {String? title}) {
@@ -34,65 +34,55 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
       ),
       title: Text(title!),
       actions: [
-        Center(child: Text('Versión: $version')),
+        Center(child: Text(version)),
       ],
     );
   }
 
   @override
   Widget? bottomNavigationBar(BuildContext context) {
-    return AnimatedNotchBottomBar(
-      notchBottomBarController: controller,
-      bottomBarItems: const [
-        BottomBarItem(
-          inActiveItem: Icon(
-            FontAwesomeIcons.rankingStar,
-            color: Colors.green,
-          ),
-          activeItem: Icon(
-            FontAwesomeIcons.rankingStar,
-            color: Colors.greenAccent,
-          ),
-          itemLabel: 'Carrera',
-        ),
-        BottomBarItem(
-          inActiveItem: Icon(
-            FontAwesomeIcons.trophy,
-            color: Colors.green,
-          ),
-          activeItem: Icon(
-            FontAwesomeIcons.trophy,
-            color: Colors.greenAccent,
-          ),
-          itemLabel: 'Ranking',
-        ),
-        // BottomBarItem(
-        //   inActiveItem: Icon(
-        //     FontAwesomeIcons.squareRss,
-        //     color: Colors.green,
-        //   ),
-        //   activeItem: Icon(
-        //     FontAwesomeIcons.squareRss,
-        //     color: Colors.greenAccent,
-        //   ),
-        //   itemLabel: 'Noticias',
-        // ),
-        BottomBarItem(
-          inActiveItem: Icon(
-            FontAwesomeIcons.solidUser,
-            color: Colors.green,
-          ),
-          activeItem: Icon(
-            FontAwesomeIcons.solidUser,
-            color: Colors.greenAccent,
-          ),
-          itemLabel: 'Usuario',
-        ),
-      ],
-      onTap: (int index) {
-        homeBloc.add(ChangeTabEvent(index));
-      },
-    );
+    return BlocBuilder<HomeBloc, HomeState>(
+        bloc: homeBloc,
+        buildWhen: (previous, state) {
+          return state is ChangeTabSuccessState;
+        },
+        builder: (BuildContext context, state) {
+          int currentIndex = 0;
+          if (state is ChangeTabSuccessState) {
+            currentIndex = state.index;
+          }
+          return SalomonBottomBar(
+            currentIndex: currentIndex,
+            selectedItemColor: Colors.greenAccent,
+            unselectedItemColor: Colors.green,
+            itemPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 21),
+            margin: const EdgeInsets.all(14),
+            items: [
+              SalomonBottomBarItem(
+                icon: const Icon(
+                  FontAwesomeIcons.route,
+                ),
+                title: const Text('Viaje'),
+              ),
+              SalomonBottomBarItem(
+                icon: const Icon(
+                  FontAwesomeIcons.rankingStar,
+                ),
+                title: const Text('Ranking'),
+              ),
+              SalomonBottomBarItem(
+                icon: const Icon(
+                  FontAwesomeIcons.solidUser,
+                ),
+                title: const Text('Usuario'),
+              ),
+            ],
+            onTap: (int index) {
+              homeBloc.add(ChangeTabEvent(index));
+            },
+          );
+        });
   }
 
   @override
@@ -104,7 +94,5 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
       null;
 
   @override
-  void dispose() {
-    controller.dispose();
-  }
+  void dispose() {}
 }

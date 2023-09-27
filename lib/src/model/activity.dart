@@ -3,8 +3,9 @@ class Activity {
   final String name;
   final DateTime startDate;
   final DateTime endDate;
-  double? distance;
+  double distance;
   String? observation;
+  bool _isUploaded = false;
 
   Activity(
       {required this.id,
@@ -14,7 +15,9 @@ class Activity {
       required this.distance,
       this.observation});
 
-  bool get hasObservation => observation == null ? false : true;
+  bool get isValid => observation == null ? true : false;
 
-  bool get startEndDateNotEqual => startDate.compareTo(endDate) != 0;
+  void markAsUploaded() => _isUploaded = true;
+
+  bool get isUploaded => _isUploaded && isValid;
 }

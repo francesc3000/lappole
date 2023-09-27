@@ -33,14 +33,6 @@ class UploadUserActivitiesState extends UserState {
   String toString() => 'UploadUserActivities state';
 }
 
-class UploadUserClubLoginState extends UserState {
-  final User user;
-
-  UploadUserClubLoginState(this.user);
-  @override
-  String toString() => 'UploadUserClubLogin state';
-}
-
 class UserStateError extends UserState {
   final String message;
 

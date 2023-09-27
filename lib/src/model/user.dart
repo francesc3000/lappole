@@ -52,4 +52,28 @@ class User {
   }
 
   bool get hasActivities => activities == null ? false : true;
+
+  bool get hasActivities4Upload => pendingDistance4Upload >= 0;
+
+  double get pendingDistance4Upload {
+    double pendingDistance = 0;
+
+    if (activities != null) {
+      for (var activity in activities!) {
+        if (!activity.isUploaded && activity.isValid) {
+          pendingDistance += activity.distance;
+        }
+      }
+    }
+
+    return pendingDistance;
+  }
+
+  void markActivitiesAsUploaded() {
+    activities?.forEach((activity) {
+      if (!activity.isUploaded && activity.isValid) {
+        activity.markAsUploaded();
+      }
+    });
+  }
 }

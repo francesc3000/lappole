@@ -8,16 +8,8 @@ import 'package:lappole/src/home/bloc/home_state.dart';
 import 'package:lappole/src/utils/custom_flash.dart';
 
 class HomeMobilePage extends HomeBasicPage {
-  final _pageController = PageController(initialPage: 0);
   HomeMobilePage(String title, String version, {Key? key})
       : super(title, version, key: key);
-
-  /// widget list
-  final List<Widget> bottomBarPages = [
-    const RouterOutlet(),
-    const RouterOutlet(),
-    const RouterOutlet(),
-  ];
 
   @override
   Widget body(BuildContext context) {
@@ -47,23 +39,7 @@ class HomeMobilePage extends HomeBasicPage {
           return state is ChangeTabSuccessState;
         },
         builder: (BuildContext context, state) {
-          if (state is ChangeTabSuccessState) {
-            if (_pageController.hasClients) {
-              _pageController.jumpToPage(state.index);
-            }
-          }
-
-          return PageView(
-            controller: _pageController,
-            children: List.generate(
-                bottomBarPages.length, (index) => bottomBarPages[index]),
-          );
+          return const RouterOutlet();
         });
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 }
