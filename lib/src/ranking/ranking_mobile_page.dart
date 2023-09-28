@@ -54,7 +54,7 @@ class RankingMobilePage extends RankingBasicPage {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: ListView(children: [
-        Text('Aquí se muestra el ranking del club e interclubes'),
+        const Text('Aquí se muestra el ranking del club e interclubes'),
         AspectRatio(aspectRatio: 1.6, child: BarChart(barChartData)),
       ]),
     );

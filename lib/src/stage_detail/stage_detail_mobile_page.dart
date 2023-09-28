@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lappole/src/model/stage.dart';
 import 'package:lappole/src/stage/bloc/stage_bloc.dart';
 import 'package:lappole/src/stage/bloc/stage_event.dart';
 import 'package:lappole/src/stage/bloc/stage_state.dart';
@@ -19,8 +20,24 @@ class StageDetailMobilePage extends StageDetailBasicPage {
       onWillPop: _onWillPop,
       child: BlocBuilder<StageBloc, StageState>(
           bloc: stageBloc,
+          buildWhen: (previous, state) => state is Navigate2StageDetailState,
           builder: (BuildContext context, state) {
-            return const Text("Esto es el detalle de la etapa");
+            late Stage stage;
+            if (state is Navigate2StageDetailState) {
+              stage = state.stage;
+            }
+
+            return Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(stage.name),
+                  Text(
+                      '${stage.stageData!.distance.toStringAsFixed(2)}/${stage.distance.toStringAsFixed(2)} Km')
+                ],
+              ),
+            );
           }),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/user/sub_page/user_club/user_club_page.dart';
 import 'package:lappole/src/user/sub_page/third_party/third_party_widget.dart';
 import 'package:lappole/src/user/sub_page/watch/watch_widget.dart';

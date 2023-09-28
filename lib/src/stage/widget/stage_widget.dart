@@ -90,8 +90,9 @@ class _StageWidget extends State<StageWidget> with TickerProviderStateMixin {
           children: [
             Text(stage.name),
             stage.hasData
-                ? Text(stage.stageData!.distance.round().toString())
-                : Container(),
+                ? Text(
+                    '${stage.stageData!.distance.toStringAsFixed(2)}/${stage.distance}')
+                : Text('${stage.distance}'),
             AnimatedIconButton(
               animationController: animationController,
               visualDensity: const VisualDensity(horizontal: 2.5, vertical: 1),

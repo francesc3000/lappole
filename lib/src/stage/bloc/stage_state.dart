@@ -19,6 +19,9 @@ class UploadStageFields extends StageState {
 }
 
 class Navigate2StageDetailState extends StageState {
+  final Stage stage;
+
+  Navigate2StageDetailState(this.stage);
   @override
   String toString() => 'Navigate2StageDetail State';
 }

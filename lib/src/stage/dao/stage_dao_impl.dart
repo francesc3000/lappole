@@ -10,32 +10,48 @@ class StageDaoImpl implements StageDao {
         startDate: DateTime.now().subtract(const Duration(days: 7)),
         endDate: DateTime.now().subtract(const Duration(days: 7)));
     stageData1.addDistance(1);
-    stages.add(Stage(id: '123', name: 'Stageo 1', stageData: stageData1));
+    stages.add(Stage(
+        id: '123',
+        name: 'Subida al Aneto',
+        distance: 100,
+        stageData: stageData1));
     StageData stageData2 = StageData(
         startDate: DateTime.now().subtract(const Duration(days: 6)),
         endDate: DateTime.now().subtract(const Duration(days: 6)));
     stageData2.addDistance(2);
-    stages.add(Stage(id: '124', name: 'Stageo 2', stageData: stageData2));
+    stages.add(Stage(
+        id: '124',
+        name: 'Subida al Teide',
+        distance: 200,
+        stageData: stageData2));
     StageData stageData3 = StageData(
         startDate: DateTime.now(),
         endDate: DateTime.now().add(const Duration(days: 1)));
     stageData3.addDistance(3);
-    stages.add(Stage(id: '125', name: 'Stageo 3', stageData: stageData3));
+    stages.add(Stage(
+        id: '125',
+        name: 'Subida al Posets',
+        distance: 300,
+        stageData: stageData3));
     stages.add(Stage(
       id: '126',
-      name: 'Stageo 4',
+      name: 'Subida a Balaitous',
+      distance: 400,
     ));
     stages.add(Stage(
       id: '127',
-      name: 'Stageo 5',
+      name: 'Subida al Monte Perdido',
+      distance: 500,
     ));
     stages.add(Stage(
       id: '128',
-      name: 'Stageo 6',
+      name: 'Subida a Balaitous',
+      distance: 600,
     ));
     stages.add(Stage(
       id: '129',
-      name: 'Stageo 7',
+      name: 'Subida al Veleta',
+      distance: 700,
     ));
     return Future.value(stages);
   }
@@ -43,9 +59,21 @@ class StageDaoImpl implements StageDao {
   @override
   Future<List<Stage>> getNoAuthStages() {
     List<Stage> stages = [];
-    stages.add(Stage(id: '126', name: 'Stageo no Auth 1'));
-    stages.add(Stage(id: '127', name: 'Stageo no Auth 2'));
-    stages.add(Stage(id: '128', name: 'Stageo no Auth 3'));
+    stages.add(Stage(
+      id: '123',
+      name: 'Subida al Aneto',
+      distance: 100,
+    ));
+    stages.add(Stage(
+      id: '124',
+      name: 'Subida al Teide',
+      distance: 200,
+    ));
+    stages.add(Stage(
+      id: '128',
+      name: 'Subida a Posets',
+      distance: 300,
+    ));
     return Future.value(stages);
   }
 }

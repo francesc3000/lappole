@@ -67,7 +67,7 @@ class StageBloc extends Bloc<StageEvent, StageState> {
         (stage) => stage.id.compareTo(event.stageId) == 0 ? true : false);
 
     if (_currentStage?.hasData ?? false) {
-      emit(Navigate2StageDetailState());
+      emit(Navigate2StageDetailState(_currentStage!));
     } else {
       emit(StageStateError('Etapa no desbloqueada'));
       emit(_uploadStageFields());
