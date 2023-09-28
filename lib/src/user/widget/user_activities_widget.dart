@@ -37,6 +37,7 @@ class UserActivitiesWidget extends StatelessWidget {
             visible: hasActivities,
             child: ListView.builder(
                 itemCount: activities!.length,
+                shrinkWrap: true,
                 itemBuilder: (context, index) {
                   Activity activity = activities![index];
                   return ExpansionTileCard(

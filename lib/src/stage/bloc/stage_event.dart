@@ -21,3 +21,8 @@ class Navigate2StageDetailEvent extends StageEvent {
   @override
   String toString() => 'Navigate2StageDetail Event';
 }
+
+class StageonBackButtonEvent extends StageEvent {
+  @override
+  String toString() => 'StageonBackButton Event';
+}

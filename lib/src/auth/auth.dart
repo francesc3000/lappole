@@ -18,4 +18,8 @@ class Auth {
   void userLogin(userId) {
     _userId = userId;
   }
+
+  void logout() {
+    _userId = null;
+  }
 }

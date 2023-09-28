@@ -29,30 +29,27 @@ class ThirdPartyWidget extends StatelessWidget {
           }
           return Visibility(
             visible: canThirdPartyLogin,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  const Text('Health Connect'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Visibility(
-                        visible: !thirdParty!.isLogin,
-                        child: const Text('Registrar Health Connect'),
-                      ),
-                      Visibility(
-                        visible: thirdParty!.isLogin,
-                        child: const Text('Salir'),
-                      ),
-                      AddDeleteWidget(
-                        isObjectNull: !thirdParty!.isLogin,
-                        onTap: () => userClubBloc.add(LoginThirdPartyEvent()),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                const Text('Health Connect'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Visibility(
+                      visible: !thirdParty!.isLogin,
+                      child: const Text('Registrar Health Connect'),
+                    ),
+                    Visibility(
+                      visible: thirdParty!.isLogin,
+                      child: const Text('Salir'),
+                    ),
+                    AddDeleteWidget(
+                      isObjectNull: !thirdParty!.isLogin,
+                      onTap: () => userClubBloc.add(LoginThirdPartyEvent()),
+                    ),
+                  ],
+                ),
+              ],
             ),
           );
         });

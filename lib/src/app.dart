@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -42,6 +43,7 @@ class AppWidget extends StatelessWidget {
       // routeInformationParser: Modular.routeInformationParser,
       // routerDelegate: Modular.routerDelegate,
       routerConfig: Modular.routerConfig,
+      scrollBehavior: NoThumbScrollBehavior().copyWith(scrollbars: false),
     ); //added by extension
   }
 }
@@ -98,15 +100,15 @@ class AppModule extends Module {
         children: [
           ChildRoute('/main',
               child: (context) => const StagePage(),
-              transition: TransitionType.fadeIn),
+              transition: TransitionType.leftToRightWithFade),
           ChildRoute('/ranking',
               child: (context) => const RankingPage(),
               guards: [AuthGuard()],
-              transition: TransitionType.fadeIn),
+              transition: TransitionType.scale),
           ChildRoute('/user',
               child: (context) => const UserPage(),
               guards: [AuthGuard()],
-              transition: TransitionType.fadeIn),
+              transition: TransitionType.rightToLeftWithFade),
           ChildRoute('/login',
               child: (context) => const LoginPage(),
               transition: TransitionType.fadeIn),
@@ -117,4 +119,14 @@ class AppModule extends Module {
         child: (context) => StageDetailPage(),
         transition: TransitionType.fadeIn);
   }
+}
+
+class NoThumbScrollBehavior extends ScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.trackpad,
+      };
 }

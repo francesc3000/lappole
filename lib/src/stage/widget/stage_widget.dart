@@ -42,11 +42,11 @@ class _StageWidget extends State<StageWidget> with TickerProviderStateMixin {
       reverseDuration: const Duration(milliseconds: 200),
     );
 
-    if (widget.stage.isCurrent && hasPendingDistance) {
+    if (stage.isCurrent && hasPendingDistance) {
       icons.add(AnimatedIconItem(
-        icon: const Icon(
+        icon: Icon(
           FontAwesomeIcons.personRunning,
-          color: Colors.black,
+          color: stage.isCurrent ? Colors.green : Colors.black,
         ),
         // backgroundColor: Colors.black,
         onPressed: () => stage.isCurrent
@@ -74,7 +74,11 @@ class _StageWidget extends State<StageWidget> with TickerProviderStateMixin {
     icons.add(AnimatedIconItem(
       icon: Icon(
         FontAwesomeIcons.rankingStar,
-        color: stage.isCurrent ? Colors.green : Colors.black,
+        color: stage.isCurrent
+            ? Colors.green
+            : stage.hasData
+                ? Colors.black
+                : Colors.black45,
       ),
       onPressed: () => stageBloc.add(Navigate2StageDetailEvent(stage.id)),
     ));

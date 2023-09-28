@@ -24,6 +24,11 @@ class UploadUserInitState extends UserState {
   String toString() => 'UploadUserInit State';
 }
 
+class UserIsLogoutState extends UserState {
+  @override
+  String toString() => 'UserIsLogout State';
+}
+
 class UploadUserActivitiesState extends UserState {
   final List<Activity>? activities;
   final bool hasActivities;

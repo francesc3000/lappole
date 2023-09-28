@@ -4,21 +4,24 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/home/bloc/home_event.dart';
 import 'package:lappole/src/home/bloc/home_state.dart';
-import 'package:lappole/src/login/bloc/login_bloc.dart';
-import 'package:lappole/src/login/bloc/login_state.dart';
+import 'package:lappole/src/user/bloc/user_bloc.dart';
+import 'package:lappole/src/user/bloc/user_state.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final loginBloc = Modular.get<LoginBloc>();
+  final userBloc = Modular.get<UserBloc>();
   int _currentIndex = 0;
-  StreamSubscription<LoginState>? streamSubscription;
+  StreamSubscription<UserState>? streamSubscription;
 
   HomeBloc() : super(HomeInitState()) {
     on<HomeInitDataEvent>(_homeInitDataEvent);
     on<ChangeTabEvent>(_changeTabEvent);
 
-    streamSubscription = loginBloc.stream.listen((state) {
-      if (state is LoginSuccessState) {
+    streamSubscription = userBloc.stream.listen((state) {
+      if (state is UserIsLoginState) {
+        add(ChangeTabEvent(_currentIndex));
+      } else if (state is UserIsLogoutState) {
+        _currentIndex = 0;
         add(ChangeTabEvent(_currentIndex));
       }
     });

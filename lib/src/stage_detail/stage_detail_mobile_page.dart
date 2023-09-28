@@ -9,7 +9,7 @@ class StageDetailMobilePage extends StageDetailBasicPage {
   StageDetailMobilePage(String title, {Key? key}) : super(title, key: key);
 
   Future<bool> _onWillPop() async {
-    stageBloc.add(StageInitialDataEvent());
+    stageBloc.add(StageonBackButtonEvent());
     return true;
   }
 

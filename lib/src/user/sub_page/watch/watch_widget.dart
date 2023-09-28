@@ -33,34 +33,31 @@ class WatchWidget extends StatelessWidget {
 
           return Visibility(
             visible: canAddWatch,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  const Text('Reloj'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Visibility(
-                        visible: isWatchNull,
-                        child: const Text('No tienes ningun reloj emparejado'),
+            child: Column(
+              children: [
+                const Text('Reloj'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Visibility(
+                      visible: isWatchNull,
+                      child: const Text('No tienes ningun reloj emparejado'),
+                    ),
+                    Visibility(
+                      visible: !isWatchNull,
+                      child: Column(
+                        children: [
+                          Text('Nombre: ${watch?.name ?? ''}'),
+                        ],
                       ),
-                      Visibility(
-                        visible: !isWatchNull,
-                        child: Column(
-                          children: [
-                            Text('Nombre: ${watch?.name ?? ''}'),
-                          ],
-                        ),
-                      ),
-                      AddDeleteWidget(
-                        isObjectNull: isWatchNull,
-                        onTap: () => userClubBloc.add(AddDeleteWatchEvent()),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    AddDeleteWidget(
+                      isObjectNull: isWatchNull,
+                      onTap: () => userClubBloc.add(AddDeleteWatchEvent()),
+                    ),
+                  ],
+                ),
+              ],
             ),
           );
         });

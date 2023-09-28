@@ -25,11 +25,16 @@ class StageBloc extends Bloc<StageEvent, StageState> {
     on<StageInitialDataEvent>(_stageInitialDataEvent);
     on<AddDistanceEvent>(_addDistanceEvent);
     on<Navigate2StageDetailEvent>(_navigate2StageDetailEvent);
+    on<StageonBackButtonEvent>(_stageonBackButtonEvent);
 
     userSubscription = userBloc.stream.listen((UserState state) => {
           if (state is UserIsLoginState)
             {_user = state.user, add(StageInitialDataEvent())}
+          else if (state is UserIsLogoutState)
+            {_user = null, add(StageInitialDataEvent())}
         });
+
+    _user = userBloc.user;
   }
 
   void _stageInitialDataEvent(StageInitialDataEvent event, Emitter emit) async {
@@ -67,6 +72,11 @@ class StageBloc extends Bloc<StageEvent, StageState> {
       emit(StageStateError('Etapa no desbloqueada'));
       emit(_uploadStageFields());
     }
+  }
+
+  void _stageonBackButtonEvent(
+      StageonBackButtonEvent event, Emitter emit) async {
+    emit(_uploadStageFields());
   }
 
   StageState _uploadStageFields() =>

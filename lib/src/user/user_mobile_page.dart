@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/user/sub_page/user_club/user_club_page.dart';
 import 'package:lappole/src/user/sub_page/third_party/third_party_widget.dart';
 import 'package:lappole/src/user/sub_page/watch/watch_widget.dart';
@@ -41,17 +42,28 @@ class UserMobilePage extends UserBasicPage {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Flexible(flex: 2, child: UserDataWidget()),
-                const Flexible(child: UserClubPage()),
-                Flexible(child: WatchWidget()),
-                Flexible(child: ThirdPartyWidget()),
-                Flexible(child: UserActivitiesWidget()),
-              ],
-            ),
+          return Column(
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => userBloc.add(UserLogoutEvent()),
+                        child: const Text('Salir'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Flexible(flex: 2, child: UserDataWidget()),
+              const Flexible(child: UserClubPage()),
+              Flexible(child: WatchWidget()),
+              Flexible(child: ThirdPartyWidget()),
+              Expanded(flex: 2, child: UserActivitiesWidget()),
+            ],
           );
         });
   }

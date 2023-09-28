@@ -24,6 +24,8 @@ class RankingBloc extends Bloc<RankingEvent, RankingState> {
     userSubscription = userBloc.stream.listen((UserState state) => {
           if (state is UserIsLoginState)
             {_user = state.user, add(RankingInitialDataEvent())}
+          else if (state is UserIsLogoutState)
+            {_user = null, add(RankingInitialDataEvent())}
         });
   }
 

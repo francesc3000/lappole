@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lappole/src/app.dart';
@@ -10,7 +11,9 @@ void main() async {
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
 
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider<HomeBloc>(

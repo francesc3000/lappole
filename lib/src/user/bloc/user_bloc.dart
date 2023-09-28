@@ -20,6 +20,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   UserBloc() : super(UserInitState()) {
     on<InitUserDataEvent>(_initUserDataEvent);
+    on<UserLogoutEvent>(_userLogoutEvent);
 
     streamSubscription = loginBloc.stream.listen((state) {
       if (state is LoginSuccessState) {
@@ -43,6 +44,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(error);
       }
     }
+  }
+
+  void _userLogoutEvent(UserLogoutEvent event, Emitter emit) async {
+    _auth.logout();
+    user = null;
+
+    emit(UserIsLogoutState());
   }
 
   Future<void> _getThirdPartyActivities() async {

@@ -6,6 +6,7 @@ import 'package:lappole/src/home/bloc/home_bloc.dart';
 import 'package:lappole/src/home/bloc/home_event.dart';
 import 'package:lappole/src/home/bloc/home_state.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:upgrader/upgrader.dart';
 
 import 'home_desktop_page.dart';
 import 'home_mobile_page.dart';
@@ -28,18 +29,20 @@ class HomePage extends StatelessWidget {
           version = state.version;
         }
 
-        return ScreenTypeLayout.builder(
-          mobile: (BuildContext context) => OrientationLayoutBuilder(
-            portrait: (context) =>
-                HomeMobilePage(AppLocalizations.of(context)!.title, version),
-          ),
-          tablet: (BuildContext context) => OrientationLayoutBuilder(
-            portrait: (context) =>
-                HomeMobilePage(AppLocalizations.of(context)!.title, version),
-          ),
-          desktop: (BuildContext context) => OrientationLayoutBuilder(
-            portrait: (context) =>
-                HomeDesktopPage(AppLocalizations.of(context)!.title, version),
+        return UpgradeAlert(
+          child: ScreenTypeLayout.builder(
+            mobile: (BuildContext context) => OrientationLayoutBuilder(
+              portrait: (context) =>
+                  HomeMobilePage(AppLocalizations.of(context)!.title, version),
+            ),
+            tablet: (BuildContext context) => OrientationLayoutBuilder(
+              portrait: (context) =>
+                  HomeMobilePage(AppLocalizations.of(context)!.title, version),
+            ),
+            desktop: (BuildContext context) => OrientationLayoutBuilder(
+              portrait: (context) =>
+                  HomeDesktopPage(AppLocalizations.of(context)!.title, version),
+            ),
           ),
         );
       });
