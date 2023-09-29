@@ -71,34 +71,45 @@ class StageController extends StatelessWidget {
             Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
         axis: scrollDirection);
 
-    return ListView.builder(
-      scrollDirection: scrollDirection,
-      controller: controller,
-      shrinkWrap: true,
-      itemCount: stages?.length ?? 0,
-      itemBuilder: (context, index) {
-        Stage stage = stages![index];
-        stagePosition.nextPosition();
-
-        if (stage.isCurrent) {
-          controller.scrollToIndex(index,
-              preferPosition: AutoScrollPosition.middle);
-        }
-
-        return AutoScrollTag(
-          key: ValueKey(index),
-          controller: controller,
-          index: index,
-          child: SizedBox(
-            height: (MediaQuery.of(context).size.height / 3) - 40,
-            child: StageWidget(
-              stage: stage,
-              pendingDistance: user?.pendingDistance4Upload ?? 0,
-              stageAxisAlignment: stagePosition.position,
-            ),
+    return CustomScrollView(
+      slivers: [
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
           ),
-        );
-      },
+          delegate: SliverChildBuilderDelegate(
+            childCount: stages?.length ?? 0,
+            (BuildContext context, int index) {
+              // scrollDirection: scrollDirection,
+              // controller: controller,
+              // shrinkWrap: true,
+              // itemCount: stages?.length ?? 0,
+              // itemBuilder: (context, index) {
+              Stage stage = stages![index];
+              stagePosition.nextPosition();
+
+              if (stage.isCurrent) {
+                controller.scrollToIndex(index,
+                    preferPosition: AutoScrollPosition.middle);
+              }
+
+              return AutoScrollTag(
+                key: ValueKey(index),
+                controller: controller,
+                index: index,
+                child: SizedBox(
+                  height: (MediaQuery.of(context).size.height / 3) - 40,
+                  child: StageWidget(
+                    stage: stage,
+                    pendingDistance: user?.pendingDistance4Upload ?? 0,
+                    stageAxisAlignment: stagePosition.position,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

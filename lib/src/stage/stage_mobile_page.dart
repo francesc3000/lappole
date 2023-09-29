@@ -52,10 +52,7 @@ class StageMobilePage extends StageBasicPage {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 70.0),
-            child: StageController(user: user, stages: stages),
-          );
+          return StageController(user: user, stages: stages);
         });
   }
 }

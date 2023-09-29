@@ -64,15 +64,37 @@ class StageDaoImpl implements StageDao {
       name: 'Subida al Aneto',
       distance: 100,
     ));
+
     stages.add(Stage(
       id: '124',
       name: 'Subida al Teide',
       distance: 200,
     ));
+
+    stages.add(Stage(
+      id: '125',
+      name: 'Subida al Posets',
+      distance: 300,
+    ));
+    stages.add(Stage(
+      id: '126',
+      name: 'Subida a Balaitous',
+      distance: 400,
+    ));
+    stages.add(Stage(
+      id: '127',
+      name: 'Subida al Monte Perdido',
+      distance: 500,
+    ));
     stages.add(Stage(
       id: '128',
-      name: 'Subida a Posets',
-      distance: 300,
+      name: 'Subida a Balaitous',
+      distance: 600,
+    ));
+    stages.add(Stage(
+      id: '129',
+      name: 'Subida al Veleta',
+      distance: 700,
     ));
     return Future.value(stages);
   }

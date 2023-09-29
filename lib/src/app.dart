@@ -117,6 +117,7 @@ class AppModule extends Module {
         transition: TransitionType.fadeIn);
     r.child('/stageDetail',
         child: (context) => StageDetailPage(),
+        guards: [AuthGuard()],
         transition: TransitionType.fadeIn);
   }
 }
