@@ -48,11 +48,6 @@ class StageDaoImpl implements StageDao {
       name: 'Subida a Balaitous',
       distance: 600,
     ));
-    stages.add(Stage(
-      id: '129',
-      name: 'Subida al Veleta',
-      distance: 700,
-    ));
     return Future.value(stages);
   }
 
@@ -90,11 +85,6 @@ class StageDaoImpl implements StageDao {
       id: '128',
       name: 'Subida a Balaitous',
       distance: 600,
-    ));
-    stages.add(Stage(
-      id: '129',
-      name: 'Subida al Veleta',
-      distance: 700,
     ));
     return Future.value(stages);
   }

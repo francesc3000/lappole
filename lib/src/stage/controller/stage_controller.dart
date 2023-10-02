@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/stage/widget/stage_widget.dart';
 import 'package:lappole/src/model/stage.dart';
@@ -13,6 +14,7 @@ enum StagePositionType {
 enum DirectionSense {
   left,
   right,
+  down,
 }
 
 class StagePosition {
@@ -80,11 +82,12 @@ class StageController extends StatelessWidget {
           delegate: SliverChildBuilderDelegate(
             childCount: stages?.length ?? 0,
             (BuildContext context, int index) {
-              // scrollDirection: scrollDirection,
-              // controller: controller,
-              // shrinkWrap: true,
-              // itemCount: stages?.length ?? 0,
-              // itemBuilder: (context, index) {
+              // return ListView.builder(
+              //   scrollDirection: scrollDirection,
+              //   controller: controller,
+              //   shrinkWrap: true,
+              //   itemCount: stages?.length ?? 0,
+              //   itemBuilder: (context, index) {
               Stage stage = stages![index];
               stagePosition.nextPosition();
 
@@ -99,10 +102,46 @@ class StageController extends StatelessWidget {
                 index: index,
                 child: SizedBox(
                   height: (MediaQuery.of(context).size.height / 3) - 40,
-                  child: StageWidget(
-                    stage: stage,
-                    pendingDistance: user?.pendingDistance4Upload ?? 0,
-                    stageAxisAlignment: stagePosition.position,
+                  child: Column(
+                    children: [
+                      Visibility(
+                          visible:
+                              index % 4 == 0 || index % 4 == 3 ? true : false,
+                          child: RotatedBox(
+                              quarterTurns:
+                                  index % 4 == 0 || index % 4 == 3 ? 1 : 1,
+                              child: Icon(FontAwesomeIcons.shoePrints))),
+                      Row(
+                        children: [
+                          Visibility(
+                              visible: index % 4 == 1 || index % 4 == 3
+                                  ? true
+                                  : false,
+                              child: RotatedBox(
+                                  quarterTurns: index % 4 == 1 ? 4 : 2,
+                                  child: Icon(FontAwesomeIcons.shoePrints))),
+                          StageWidget(
+                            stage: stage,
+                            pendingDistance: user?.pendingDistance4Upload ?? 0,
+                            stageAxisAlignment: MainAxisAlignment.center,
+                          ),
+                          Visibility(
+                              visible: index % 4 == 0 || index % 4 == 2
+                                  ? true
+                                  : false,
+                              child: RotatedBox(
+                                  quarterTurns:
+                                      index % 4 == 0 || index % 4 == 2 ? 4 : 4,
+                                  child: Icon(FontAwesomeIcons.shoePrints))),
+                        ],
+                      ),
+                      Visibility(
+                          visible:
+                              index % 4 == 1 || index % 4 == 2 ? true : false,
+                          child: RotatedBox(
+                              quarterTurns: 1,
+                              child: Icon(FontAwesomeIcons.shoePrints))),
+                    ],
                   ),
                 ),
               );
