@@ -18,16 +18,7 @@ class HomeDesktopPage extends HomeBasicPage {
         listener: (context, state) {
           if (state is HomeInitState) {
           } else if (state is ChangeTabSuccessState) {
-            switch (state.index) {
-              case 1:
-                Modular.to.navigate('/ranking');
-                break;
-              case 2:
-                Modular.to.navigate('/user');
-                break;
-              default:
-                Modular.to.navigate('/main');
-            }
+            Modular.to.navigate(state.navigate);
           } else if (state is HomeStateError) {
             CustomFlash(context).show(
                 message: state.message,
@@ -39,8 +30,6 @@ class HomeDesktopPage extends HomeBasicPage {
           return state is ChangeTabSuccessState;
         },
         builder: (BuildContext context, state) {
-          if (state is ChangeTabSuccessState) {}
-
           return const RouterOutlet();
         });
   }

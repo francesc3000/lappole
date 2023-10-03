@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
-import 'package:lappole/src/widget/image_network.dart';
 
 class UserDataWidget extends StatelessWidget {
   final userBloc = Modular.get<UserBloc>();

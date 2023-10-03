@@ -1,6 +1,7 @@
 import 'package:lappole/src/model/activity.dart';
 import 'package:lappole/src/model/club.dart';
 import 'package:lappole/src/model/third_party.dart';
+import 'package:lappole/src/model/user_role.dart';
 import 'package:lappole/src/model/watch.dart';
 
 class User {
@@ -11,6 +12,7 @@ class User {
   final DateTime birthdate;
   final String gender;
   final DateTime startDate;
+  final UserRole role;
   Club? club;
   Watch? watch;
   List<Activity>? activities;
@@ -23,6 +25,7 @@ class User {
     required this.birthdate,
     required this.gender,
     required this.startDate,
+    required this.role,
     this.photo,
     this.club,
     this.watch,
@@ -68,6 +71,8 @@ class User {
 
     return pendingDistance;
   }
+
+  bool get isManager => role.level >= UserRole.manager.level;
 
   void markActivitiesAsUploaded() {
     activities?.forEach((activity) {

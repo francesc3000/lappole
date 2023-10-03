@@ -6,9 +6,9 @@ class HomeInitDataEvent extends HomeEvent {
 }
 
 class ChangeTabEvent extends HomeEvent {
-  int index;
+  String navigate;
 
-  ChangeTabEvent(this.index);
+  ChangeTabEvent(this.navigate);
   @override
   String toString() => 'ChangeTabEvent Event';
 }

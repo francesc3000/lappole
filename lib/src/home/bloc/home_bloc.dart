@@ -10,7 +10,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final userBloc = Modular.get<UserBloc>();
-  int _currentIndex = 0;
+  String _currentNavigate = '/';
+  bool _isManager = false;
   StreamSubscription<UserState>? streamSubscription;
 
   HomeBloc() : super(HomeInitState()) {
@@ -19,12 +20,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     streamSubscription = userBloc.stream.listen((state) {
       if (state is UserIsLoginState) {
-        add(ChangeTabEvent(_currentIndex));
+        _isManager = state.user.isManager;
+        add(ChangeTabEvent(_currentNavigate));
       } else if (state is UserIsLogoutState) {
-        _currentIndex = 0;
-        add(ChangeTabEvent(_currentIndex));
+        _currentNavigate = '/';
+        _isManager = state.user.isManager;
+        add(ChangeTabEvent(_currentNavigate));
       }
     });
+
+    _isManager = userBloc.user?.isManager ?? false;
   }
 
   void _homeInitDataEvent(HomeInitDataEvent event, Emitter emit) async {
@@ -38,8 +43,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   void _changeTabEvent(ChangeTabEvent event, Emitter emit) async {
     try {
-      _currentIndex = event.index;
-      emit(ChangeTabSuccessState(_currentIndex));
+      _currentNavigate = event.navigate;
+      emit(ChangeTabSuccessState(_currentNavigate, _isManager));
     } catch (error) {
       emit(error is HomeStateError
           ? HomeStateError(error.message)

@@ -25,6 +25,8 @@ class UploadUserInitState extends UserState {
 }
 
 class UserIsLogoutState extends UserState {
+  get user => null;
+
   @override
   String toString() => 'UserIsLogout State';
 }

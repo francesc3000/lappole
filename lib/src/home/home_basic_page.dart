@@ -48,9 +48,65 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
         },
         builder: (BuildContext context, state) {
           int currentIndex = 0;
+          bool isManager = false;
           if (state is ChangeTabSuccessState) {
-            currentIndex = state.index;
+            isManager = state.isManager;
+
+            switch (state.navigate) {
+              case '/ranking':
+                currentIndex = 1;
+                break;
+              case '/manager':
+                currentIndex = 2;
+                break;
+              case '/user':
+                if (isManager) {
+                  currentIndex = 3;
+                } else {
+                  currentIndex = 2;
+                }
+
+                break;
+              default:
+                currentIndex = 0;
+            }
           }
+
+          List<SalomonBottomBarItem> items = [
+            SalomonBottomBarItem(
+              icon: const Icon(
+                FontAwesomeIcons.route,
+              ),
+              title: const Text('Viaje'),
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(
+                FontAwesomeIcons.rankingStar,
+              ),
+              title: const Text('Ranking'),
+            ),
+          ];
+
+          if (isManager) {
+            items.add(
+              SalomonBottomBarItem(
+                icon: const Icon(
+                  FontAwesomeIcons.chartLine,
+                ),
+                title: const Text('Manager'),
+              ),
+            );
+          }
+
+          items.add(
+            SalomonBottomBarItem(
+              icon: const Icon(
+                FontAwesomeIcons.solidUser,
+              ),
+              title: const Text('Usuario'),
+            ),
+          );
+
           return SalomonBottomBar(
             currentIndex: currentIndex,
             selectedItemColor: Colors.greenAccent,
@@ -58,28 +114,28 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
             itemPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 21),
             margin: const EdgeInsets.all(14),
-            items: [
-              SalomonBottomBarItem(
-                icon: const Icon(
-                  FontAwesomeIcons.route,
-                ),
-                title: const Text('Viaje'),
-              ),
-              SalomonBottomBarItem(
-                icon: const Icon(
-                  FontAwesomeIcons.rankingStar,
-                ),
-                title: const Text('Ranking'),
-              ),
-              SalomonBottomBarItem(
-                icon: const Icon(
-                  FontAwesomeIcons.solidUser,
-                ),
-                title: const Text('Usuario'),
-              ),
-            ],
+            items: items,
             onTap: (int index) {
-              homeBloc.add(ChangeTabEvent(index));
+              String navigate;
+              switch (index) {
+                case 1:
+                  navigate = '/ranking';
+                  break;
+                case 2:
+                  if (isManager) {
+                    navigate = '/manager';
+                  } else {
+                    navigate = '/user';
+                  }
+
+                  break;
+                case 3:
+                  navigate = '/user';
+                  break;
+                default:
+                  navigate = '/main';
+              }
+              homeBloc.add(ChangeTabEvent(navigate));
             },
           );
         });
