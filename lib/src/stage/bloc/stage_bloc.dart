@@ -10,15 +10,20 @@ import 'package:lappole/src/model/stage.dart';
 import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
+import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_bloc.dart';
+import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_state.dart';
 
 class StageBloc extends Bloc<StageEvent, StageState> {
   final factoryDao = Modular.get<FactoryDao>();
+  final userClubBloc = Modular.get<UserClubBloc>();
   final auth = Modular.get<Auth>();
   final userBloc = Modular.get<UserBloc>();
   late StreamSubscription<UserState> userSubscription;
+  StreamSubscription<UserClubState>? streamClubSubscription;
 
   List<Stage> _stages = [];
   User? _user;
+  bool _hasClub = false;
   Stage? _currentStage;
 
   StageBloc() : super(StageInitState()) {
@@ -34,11 +39,22 @@ class StageBloc extends Bloc<StageEvent, StageState> {
             {_user = null, add(StageInitialDataEvent())}
         });
 
+    streamClubSubscription = userClubBloc.stream.listen((state) {
+      if (state is UserClubJoinSuccessState) {
+        _hasClub = true;
+        add(StageInitialDataEvent());
+      } else if (state is UserClubDisjoinSuccessState) {
+        _hasClub = false;
+        add(StageInitialDataEvent());
+      }
+    });
+
     _user = userBloc.user;
+    _hasClub = _user?.hasClub ?? false;
   }
 
   void _stageInitialDataEvent(StageInitialDataEvent event, Emitter emit) async {
-    if (auth.isLogged && (_user?.hasClub ?? false)) {
+    if (auth.isLogged && (_hasClub)) {
       _stages = await factoryDao.stageDao.getStages(_user!.club!.id);
     } else {
       _stages = await factoryDao.stageDao.getNoAuthStages();

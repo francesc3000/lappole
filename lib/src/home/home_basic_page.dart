@@ -48,8 +48,11 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
         },
         builder: (BuildContext context, state) {
           int currentIndex = 0;
+          bool hasClub = false;
           bool isManager = false;
+
           if (state is ChangeTabSuccessState) {
+            hasClub = state.hasClub;
             isManager = state.isManager;
 
             switch (state.navigate) {
@@ -60,12 +63,15 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
                 currentIndex = 2;
                 break;
               case '/user':
-                if (isManager) {
-                  currentIndex = 3;
+                if (hasClub) {
+                  if (isManager) {
+                    currentIndex = 3;
+                  } else {
+                    currentIndex = 2;
+                  }
                 } else {
-                  currentIndex = 2;
+                  currentIndex = 1;
                 }
-
                 break;
               default:
                 currentIndex = 0;
@@ -79,23 +85,28 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
               ),
               title: const Text('Viaje'),
             ),
-            SalomonBottomBarItem(
-              icon: const Icon(
-                FontAwesomeIcons.rankingStar,
-              ),
-              title: const Text('Ranking'),
-            ),
           ];
 
-          if (isManager) {
+          if (hasClub) {
             items.add(
               SalomonBottomBarItem(
                 icon: const Icon(
-                  FontAwesomeIcons.chartLine,
+                  FontAwesomeIcons.rankingStar,
                 ),
-                title: const Text('Manager'),
+                title: const Text('Ranking'),
               ),
             );
+
+            if (isManager) {
+              items.add(
+                SalomonBottomBarItem(
+                  icon: const Icon(
+                    FontAwesomeIcons.chartLine,
+                  ),
+                  title: const Text('Manager'),
+                ),
+              );
+            }
           }
 
           items.add(
@@ -119,11 +130,20 @@ abstract class HomeBasicPage extends BasicPage implements Disposable {
               String navigate;
               switch (index) {
                 case 1:
-                  navigate = '/ranking';
+                  if (hasClub) {
+                    navigate = '/ranking';
+                  } else {
+                    navigate = '/user';
+                  }
+
                   break;
                 case 2:
-                  if (isManager) {
-                    navigate = '/manager';
+                  if (hasClub) {
+                    if (isManager) {
+                      navigate = '/manager';
+                    } else {
+                      navigate = '/user';
+                    }
                   } else {
                     navigate = '/user';
                   }

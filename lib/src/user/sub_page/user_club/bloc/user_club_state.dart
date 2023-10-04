@@ -7,6 +7,16 @@ class UserClubInitState extends UserClubState {
   String toString() => 'UserInitState';
 }
 
+class UserClubJoinSuccessState extends UserClubState {
+  @override
+  String toString() => 'UserClubJoinSuccess State';
+}
+
+class UserClubDisjoinSuccessState extends UserClubState {
+  @override
+  String toString() => 'UserClubDisjoinSuccess State';
+}
+
 class UploadUserClubLoginState extends UserClubState {
   final User user;
 

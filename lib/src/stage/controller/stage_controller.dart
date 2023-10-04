@@ -76,7 +76,7 @@ class StageController extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverGrid(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
           delegate: SliverChildBuilderDelegate(

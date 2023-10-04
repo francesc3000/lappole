@@ -25,8 +25,6 @@ class UploadUserInitState extends UserState {
 }
 
 class UserIsLogoutState extends UserState {
-  get user => null;
-
   @override
   String toString() => 'UserIsLogout State';
 }
@@ -38,6 +36,11 @@ class UploadUserActivitiesState extends UserState {
   UploadUserActivitiesState(this.activities, this.hasActivities);
   @override
   String toString() => 'UploadUserActivities state';
+}
+
+class UserNoClubState extends UserState {
+  @override
+  String toString() => 'UserIsLogout State';
 }
 
 class UserStateError extends UserState {

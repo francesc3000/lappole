@@ -54,6 +54,7 @@ class UserClubBloc extends Bloc<UserClubEvent, UserClubState> {
         await _factoryDao.userDao.disjoinClub(_user!.id, _clubPassword);
         //TODO: Quitar cuando se guarde en firebase
         _user!.club = null;
+        emit(UserClubDisjoinSuccessState());
       } else {
         _user!.club =
             await _factoryDao.clubDao.getClubByPassword(_clubPassword);
@@ -61,6 +62,7 @@ class UserClubBloc extends Bloc<UserClubEvent, UserClubState> {
           emit(UserClubStateError('Contraseña Club no válida'));
         } else {
           await _factoryDao.userDao.joinClub(_user!.id, _user!.club!.id);
+          emit(UserClubJoinSuccessState());
         }
       }
 

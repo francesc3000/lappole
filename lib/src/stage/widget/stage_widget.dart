@@ -36,20 +36,22 @@ class _StageWidget extends State<StageWidget> with TickerProviderStateMixin {
 
     bool hasPendingDistance = pendingDistance > 0 ? true : false;
 
+    bool isCurrentStage = stage.isCurrent;
+
     var animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
       reverseDuration: const Duration(milliseconds: 200),
     );
 
-    if (stage.isCurrent && hasPendingDistance) {
+    if (isCurrentStage && hasPendingDistance) {
       icons.add(AnimatedIconItem(
         icon: Icon(
           FontAwesomeIcons.personRunning,
-          color: stage.isCurrent ? Colors.green : Colors.black,
+          color: isCurrentStage ? Colors.green : Colors.black,
         ),
         // backgroundColor: Colors.black,
-        onPressed: () => stage.isCurrent
+        onPressed: () => isCurrentStage
             ? stageBloc.add(AddDistanceEvent(stageId: stage.id))
             : null,
       ));
@@ -74,7 +76,7 @@ class _StageWidget extends State<StageWidget> with TickerProviderStateMixin {
     icons.add(AnimatedIconItem(
       icon: Icon(
         FontAwesomeIcons.rankingStar,
-        color: stage.isCurrent
+        color: isCurrentStage
             ? Colors.green
             : stage.hasData
                 ? Colors.black
@@ -102,7 +104,7 @@ class _StageWidget extends State<StageWidget> with TickerProviderStateMixin {
               icons: icons,
             ),
             Visibility(
-                visible: widget.stage.isCurrent && hasPendingDistance,
+                visible: isCurrentStage && hasPendingDistance,
                 child: Text('Subir ${pendingDistance.toStringAsFixed(2)} KM')),
           ],
         ),

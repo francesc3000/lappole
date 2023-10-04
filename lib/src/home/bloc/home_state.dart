@@ -15,8 +15,9 @@ class VersionDataState extends HomeState {
 
 class ChangeTabSuccessState extends HomeState {
   final String navigate;
+  final bool hasClub;
   final bool isManager;
-  ChangeTabSuccessState(this.navigate, this.isManager);
+  ChangeTabSuccessState(this.navigate, this.hasClub, this.isManager);
 
   @override
   String toString() => 'ChangeTabSuccess State';
