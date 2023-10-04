@@ -10,7 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final userBloc = Modular.get<UserBloc>();
-  String _currentNavigate = '/';
+  String _currentNavigate = '/main';
   bool _isManager = false;
   StreamSubscription<UserState>? streamSubscription;
 
@@ -23,8 +23,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         _isManager = state.user.isManager;
         add(ChangeTabEvent(_currentNavigate));
       } else if (state is UserIsLogoutState) {
-        _currentNavigate = '/';
-        _isManager = state.user.isManager;
+        _currentNavigate = '/main';
+        _isManager = false;
         add(ChangeTabEvent(_currentNavigate));
       }
     });

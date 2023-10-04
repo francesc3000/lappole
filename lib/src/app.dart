@@ -10,6 +10,8 @@ import 'package:lappole/src/home/home_page.dart';
 import 'package:lappole/src/login/bloc/login_bloc.dart';
 import 'package:lappole/src/login/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lappole/src/manager/bloc/manager_bloc.dart';
+import 'package:lappole/src/manager/manager_page.dart';
 import 'package:lappole/src/ranking/bloc/ranking_bloc.dart';
 import 'package:lappole/src/ranking/ranking_page.dart';
 import 'package:lappole/src/stage/bloc/stage_bloc.dart';
@@ -91,6 +93,12 @@ class AppModule extends Module {
       //   onDispose: (bloc) => bloc.close(),
       // ),
     );
+    i.addSingleton<ManagerBloc>(
+      ManagerBloc.new,
+      // config: BindConfig(
+      //   onDispose: (bloc) => bloc.close(),
+      // ),
+    );
   }
 
   @override
@@ -106,7 +114,7 @@ class AppModule extends Module {
               guards: [AuthGuard()],
               transition: TransitionType.scale),
           ChildRoute('/manager',
-              child: (context) => const RankingPage(),
+              child: (context) => const ManagerPage(),
               guards: [AuthGuard()],
               transition: TransitionType.scale),
           ChildRoute('/user',
