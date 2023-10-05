@@ -23,60 +23,55 @@ class UserActivitiesWidget extends StatelessWidget {
           return state is UploadUserActivitiesState;
         },
         builder: (BuildContext context, state) {
-          bool hasActivities = false;
-
           if (state is UploadUserInitState) {
             activities = state.user.activities;
-            hasActivities = state.user.hasActivities;
           } else if (state is UploadUserActivitiesState) {
             activities = state.activities;
-            hasActivities = state.hasActivities;
           }
 
-          return Visibility(
-            visible: hasActivities,
-            child: ListView.builder(
-                itemCount: activities!.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  Activity activity = activities![index];
-                  return ExpansionTileCard(
-                    leading: Icon(
-                      !activity.isValid
-                          ? FontAwesomeIcons.cloud
-                          : activity.isUploaded
-                              ? FontAwesomeIcons.cloud
-                              : FontAwesomeIcons.cloudArrowUp,
-                      color: !activity.isValid ? Colors.red : Colors.green,
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                Activity activity = activities![index];
+                return ExpansionTileCard(
+                  leading: Icon(
+                    !activity.isValid
+                        ? FontAwesomeIcons.cloud
+                        : activity.isUploaded
+                            ? FontAwesomeIcons.cloud
+                            : FontAwesomeIcons.cloudArrowUp,
+                    color: !activity.isValid ? Colors.red : Colors.green,
+                  ),
+                  title: Text(activity.name),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                            'Fecha Inicio: ${DateFormat.yMd().format(activity.startDate)}'),
+                        Text(
+                            'Fecha Fin: ${DateFormat.yMd().format(activity.endDate)}'),
+                      ],
                     ),
-                    title: Text(activity.name),
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                              'Fecha Inicio: ${DateFormat.yMd().format(activity.startDate)}'),
-                          Text(
-                              'Fecha Fin: ${DateFormat.yMd().format(activity.endDate)}'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                              'Hora Inicio: ${DateFormat.Hm().format(activity.startDate)}'),
-                          Text(
-                              'Hora Fin: ${DateFormat.Hm().format(activity.endDate)}'),
-                        ],
-                      ),
-                      Text('Distancia: ${activity.distance} km'),
-                      Visibility(
-                        visible: !activity.isValid,
-                        child: Text(activity.observation ?? ''),
-                      ),
-                    ],
-                  );
-                }),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                            'Hora Inicio: ${DateFormat.Hm().format(activity.startDate)}'),
+                        Text(
+                            'Hora Fin: ${DateFormat.Hm().format(activity.endDate)}'),
+                      ],
+                    ),
+                    Text('Distancia: ${activity.distance} km'),
+                    Visibility(
+                      visible: !activity.isValid,
+                      child: Text(activity.observation ?? ''),
+                    ),
+                  ],
+                );
+              },
+              childCount: activities!.length,
+            ),
           );
         });
   }

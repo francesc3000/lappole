@@ -110,7 +110,7 @@ class StageController extends StatelessWidget {
                           child: RotatedBox(
                               quarterTurns:
                                   index % 4 == 0 || index % 4 == 3 ? 1 : 1,
-                              child: Icon(FontAwesomeIcons.shoePrints))),
+                              child: const Icon(FontAwesomeIcons.shoePrints))),
                       Row(
                         children: [
                           Visibility(
@@ -119,7 +119,8 @@ class StageController extends StatelessWidget {
                                   : false,
                               child: RotatedBox(
                                   quarterTurns: index % 4 == 1 ? 4 : 2,
-                                  child: Icon(FontAwesomeIcons.shoePrints))),
+                                  child:
+                                      const Icon(FontAwesomeIcons.shoePrints))),
                           StageWidget(
                             stage: stage,
                             pendingDistance: user?.pendingDistance4Upload ?? 0,
@@ -132,13 +133,14 @@ class StageController extends StatelessWidget {
                               child: RotatedBox(
                                   quarterTurns:
                                       index % 4 == 0 || index % 4 == 2 ? 4 : 4,
-                                  child: Icon(FontAwesomeIcons.shoePrints))),
+                                  child:
+                                      const Icon(FontAwesomeIcons.shoePrints))),
                         ],
                       ),
                       Visibility(
                           visible:
                               index % 4 == 1 || index % 4 == 2 ? true : false,
-                          child: RotatedBox(
+                          child: const RotatedBox(
                               quarterTurns: 1,
                               child: Icon(FontAwesomeIcons.shoePrints))),
                     ],

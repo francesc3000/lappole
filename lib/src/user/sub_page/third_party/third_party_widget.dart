@@ -7,13 +7,12 @@ import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_event.dart';
 import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_state.dart';
 import 'package:lappole/src/user/widget/add_delete_widget.dart';
 
-class ThirdPartyWidget extends StatelessWidget {
+class ThirdPartyWidget extends SliverPersistentHeaderDelegate {
   final userClubBloc = Modular.get<UserClubBloc>();
 
-  ThirdPartyWidget({super.key});
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     ThirdParty? thirdParty;
     return BlocBuilder<UserClubBloc, UserClubState>(
         bloc: userClubBloc,
@@ -54,4 +53,14 @@ class ThirdPartyWidget extends StatelessWidget {
           );
         });
   }
+
+  @override
+  double get maxExtent => 64;
+
+  @override
+  double get minExtent => 24;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
 }

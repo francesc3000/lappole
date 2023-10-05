@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lappole/src/user/sub_page/user_club/user_club_page.dart';
+import 'package:lappole/src/user/sub_page/watch/watch_widget.dart';
 import 'package:lappole/src/user/user_basic_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
-import 'package:lappole/src/user/widget/user_activities_widget.dart';
 import 'package:lappole/src/user/widget/user_data_widget.dart';
 import 'package:lappole/src/utils/custom_flash.dart';
 
@@ -39,17 +39,31 @@ class UserDesktopPage extends UserBasicPage {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Flexible(flex: 1, child: UserDataWidget()),
-                const Flexible(flex: 1, child: UserClubPage()),
-                // WatchWidget(),
-                // ThirdPartyWidget(),
-                Flexible(flex: 2, child: UserActivitiesWidget()),
-              ],
-            ),
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                title: UserDataWidget(),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, right: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => userBloc.add(UserLogoutEvent()),
+                          child: const Text('Salir'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SliverPersistentHeader(delegate: UserClubPage()),
+              SliverPersistentHeader(
+                delegate: WatchWidget(),
+              ),
+            ],
           );
         });
   }

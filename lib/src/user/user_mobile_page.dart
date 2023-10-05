@@ -41,12 +41,13 @@ class UserMobilePage extends UserBasicPage {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Column(
-            children: [
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0, right: 8.0),
-                  child: Row(
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                title: UserDataWidget(),
+                actions: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
@@ -55,13 +56,16 @@ class UserMobilePage extends UserBasicPage {
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
-              Flexible(flex: 2, child: UserDataWidget()),
-              const Flexible(child: UserClubPage()),
-              Flexible(child: WatchWidget()),
-              Flexible(child: ThirdPartyWidget()),
-              Expanded(flex: 2, child: UserActivitiesWidget()),
+              SliverPersistentHeader(delegate: UserClubPage()),
+              SliverPersistentHeader(
+                delegate: WatchWidget(),
+              ),
+              SliverPersistentHeader(
+                delegate: ThirdPartyWidget(),
+              ),
+              UserActivitiesWidget(),
             ],
           );
         });
