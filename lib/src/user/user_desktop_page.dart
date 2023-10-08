@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lappole/src/user/sub_page/user_club/user_club_page.dart';
-import 'package:lappole/src/user/sub_page/watch/watch_widget.dart';
 import 'package:lappole/src/user/user_basic_page.dart';
 import 'package:lappole/src/user/bloc/user_bloc.dart';
 import 'package:lappole/src/user/bloc/user_event.dart';
 import 'package:lappole/src/user/bloc/user_state.dart';
+import 'package:lappole/src/user/widget/input_distance_widget.dart';
+import 'package:lappole/src/user/widget/user_activities_widget.dart';
 import 'package:lappole/src/user/widget/user_data_widget.dart';
 import 'package:lappole/src/utils/custom_flash.dart';
 
@@ -45,24 +46,22 @@ class UserDesktopPage extends UserBasicPage {
                 pinned: true,
                 title: UserDataWidget(),
                 actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, right: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => userBloc.add(UserLogoutEvent()),
-                          child: const Text('Salir'),
-                        ),
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => userBloc.add(UserLogoutEvent()),
+                        child: const Text('Salir'),
+                      ),
+                    ],
                   ),
                 ],
               ),
               SliverPersistentHeader(delegate: UserClubPage()),
               SliverPersistentHeader(
-                delegate: WatchWidget(),
+                delegate: InputDistanceWidget(),
               ),
+              UserActivitiesWidget(),
             ],
           );
         });

@@ -7,12 +7,13 @@ import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_event.dart';
 import 'package:lappole/src/user/sub_page/user_club/bloc/user_club_state.dart';
 import 'package:lappole/src/user/widget/add_delete_widget.dart';
 
-class WatchWidget extends SliverPersistentHeaderDelegate {
+class WatchWidget extends StatelessWidget {
   final userClubBloc = Modular.get<UserClubBloc>();
 
+  WatchWidget({super.key});
+
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context) {
     Watch? watch;
 
     return BlocBuilder<UserClubBloc, UserClubState>(
