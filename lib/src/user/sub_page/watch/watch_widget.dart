@@ -62,14 +62,4 @@ class WatchWidget extends StatelessWidget {
           );
         });
   }
-
-  @override
-  double get maxExtent => 64;
-
-  @override
-  double get minExtent => 24;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      true;
 }

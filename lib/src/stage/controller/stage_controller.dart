@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lappole/src/model/user.dart';
 import 'package:lappole/src/stage/widget/stage_widget.dart';
 import 'package:lappole/src/model/stage.dart';
@@ -104,45 +103,45 @@ class StageController extends StatelessWidget {
                   height: (MediaQuery.of(context).size.height / 3) - 40,
                   child: Column(
                     children: [
-                      Visibility(
-                          visible:
-                              index % 4 == 0 || index % 4 == 3 ? true : false,
-                          child: RotatedBox(
-                              quarterTurns:
-                                  index % 4 == 0 || index % 4 == 3 ? 1 : 1,
-                              child: const Icon(FontAwesomeIcons.shoePrints))),
+                      // Visibility(
+                      //     visible:
+                      //         index % 4 == 0 || index % 4 == 3 ? true : false,
+                      //     child: RotatedBox(
+                      //         quarterTurns:
+                      //             index % 4 == 0 || index % 4 == 3 ? 1 : 1,
+                      //         child: const Icon(FontAwesomeIcons.shoePrints))),
                       Row(
                         children: [
-                          Visibility(
-                              visible: index % 4 == 1 || index % 4 == 3
-                                  ? true
-                                  : false,
-                              child: RotatedBox(
-                                  quarterTurns: index % 4 == 1 ? 4 : 2,
-                                  child:
-                                      const Icon(FontAwesomeIcons.shoePrints))),
+                          // Visibility(
+                          //     visible: index % 4 == 1 || index % 4 == 3
+                          //         ? true
+                          //         : false,
+                          //     child: RotatedBox(
+                          //         quarterTurns: index % 4 == 1 ? 4 : 2,
+                          //         child:
+                          //             const Icon(FontAwesomeIcons.shoePrints))),
                           StageWidget(
                             stage: stage,
                             pendingDistance: user?.pendingDistance4Upload ?? 0,
                             stageAxisAlignment: MainAxisAlignment.center,
                           ),
-                          Visibility(
-                              visible: index % 4 == 0 || index % 4 == 2
-                                  ? true
-                                  : false,
-                              child: RotatedBox(
-                                  quarterTurns:
-                                      index % 4 == 0 || index % 4 == 2 ? 4 : 4,
-                                  child:
-                                      const Icon(FontAwesomeIcons.shoePrints))),
+                          // Visibility(
+                          //     visible: index % 4 == 0 || index % 4 == 2
+                          //         ? true
+                          //         : false,
+                          //     child: RotatedBox(
+                          //         quarterTurns:
+                          //             index % 4 == 0 || index % 4 == 2 ? 4 : 4,
+                          //         child:
+                          //             const Icon(FontAwesomeIcons.shoePrints))),
                         ],
                       ),
-                      Visibility(
-                          visible:
-                              index % 4 == 1 || index % 4 == 2 ? true : false,
-                          child: const RotatedBox(
-                              quarterTurns: 1,
-                              child: Icon(FontAwesomeIcons.shoePrints))),
+                      // Visibility(
+                      //     visible:
+                      //         index % 4 == 1 || index % 4 == 2 ? true : false,
+                      //     child: const RotatedBox(
+                      //         quarterTurns: 1,
+                      //         child: Icon(FontAwesomeIcons.shoePrints))),
                     ],
                   ),
                 ),
